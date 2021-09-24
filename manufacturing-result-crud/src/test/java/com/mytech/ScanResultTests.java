@@ -25,6 +25,7 @@ public class ScanResultTests {
                 .stationChannelNo(1)
                 .testItem("TP12 height")
                 .result(4.011)
+                .operator("Alice")
                 .startTime(startTime)
                 .endTime(endTime)
                 .comment("created by test program")

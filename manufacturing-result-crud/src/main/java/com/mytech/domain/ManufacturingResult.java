@@ -60,6 +60,10 @@ public class ManufacturingResult {
     @NotNull(message = "manufacturing result value is null")
     private Double result;
 
+    @Column(name = "f_operator")
+    @NotBlank(message = "operator is blank(either null or empty)")
+    private String operator;
+
     @Column(name = "f_start_time")
     @NotNull(message = "startTime is null")
     private LocalDateTime startTime;
