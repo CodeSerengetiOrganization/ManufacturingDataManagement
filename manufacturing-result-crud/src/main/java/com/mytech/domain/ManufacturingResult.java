@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -20,6 +17,9 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder
+@Entity
+@Table(name = "t_manufacturing_complex_result")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ManufacturingResult {
 
     @Id
