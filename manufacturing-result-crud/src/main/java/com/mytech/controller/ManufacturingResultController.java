@@ -30,4 +30,6 @@ public class ManufacturingResultController {
         return ManufacturingResultOutputDTO.convertToDTO(savedResult);
     }
 
+//    public int deleteResult()
+
 }//ManufacturingResultController

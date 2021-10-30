@@ -1,9 +1,16 @@
 package com.mytech.service;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Sets;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.repository.ManufacturingResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
@@ -21,16 +28,45 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
 
     @Override
     public void delete(ManufacturingResult entity) {
+        Preconditions.checkNotNull(entity,"entity to delete is null");
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+/*                .withIgnorePaths("id")
+                .withIgnorePaths("startTime")
+                .withIgnorePaths("endTime")*/;
+        Example<ManufacturingResult> resultExample = Example.of(entity,exampleMatcher);
+        Optional<ManufacturingResult> optionalResult = repository.findOne(resultExample);
+        if (optionalResult.isPresent()) repository.delete(optionalResult.get());
+
+    }
+
+    @Override
+    public Integer delete(Set<ManufacturingResult> resultSet) {
+        Preconditions.checkNotNull(resultSet,"service found:the result set to delete is null");
+
+         HashSet<ManufacturingResult> resultHashSet = Sets.newHashSet();
+       for (ManufacturingResult result: resultSet) {
+           if(result==null) continue;
+           Example<ManufacturingResult> resultExample = Example.of(result);
+           Optional<ManufacturingResult> oneResult = repository.findOne(resultExample);
+           if (oneResult.isPresent()) resultHashSet.add(oneResult.get());
+        }
+       System.out.println("resultHashSet:"+resultHashSet);
+        repository.deleteAll(resultHashSet);
+
+//        if (resultSet.contains(null)) throw new NullPointerException("service found: at least one of the ManufacturingResult instance to delete is null");
+//        repository.deleteAll(resultSet);
+        return resultSet.size();
 
     }
 
     @Override
     public void deleteByBarcode(String barcode) {
-
+        repository.deleteByBarcode(barcode);
     }
 
     @Override
     public void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem) {
-
+        repository.deleteByBarcodeAndFeatureNameAndTestItem(barcode, featureName, testItem);
     }
 }//ManufacturingResultServiceImpl
