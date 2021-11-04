@@ -11,7 +11,7 @@ import java.util.Set;
  * @date 2021-09-27
  * @description :
  */
-@Service
+//@Service
 public interface ManufacturingResultService {
     //1.create
     <S extends ManufacturingResult> S save(S entity);

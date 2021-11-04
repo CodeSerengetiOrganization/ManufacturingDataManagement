@@ -17,7 +17,7 @@ import java.util.*;
  * @date 2021-09-27
  * @description :
  */
-@Service
+@Service("complexResultServiceImpl")
 public class ManufacturingResultServiceImpl implements ManufacturingResultService {
     @Autowired
     ManufacturingResultRepository repository;

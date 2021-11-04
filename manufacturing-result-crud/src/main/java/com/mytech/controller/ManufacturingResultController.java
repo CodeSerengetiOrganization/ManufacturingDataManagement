@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.dto.ManufacturingResultInputDTO;
 import com.mytech.dto.ManufacturingResultOutputDTO;
+import com.mytech.service.ManufacturingResultService;
 import com.mytech.service.ManufacturingResultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class ManufacturingResultController {
 
     @Autowired
-    ManufacturingResultServiceImpl resultService;
+    @Qualifier("complexResultServiceImpl")
+    ManufacturingResultService resultService;
 
     @PostMapping("/manufacturingresult/v1")
     @ResponseStatus(HttpStatus.CREATED)
