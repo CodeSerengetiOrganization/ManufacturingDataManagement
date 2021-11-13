@@ -99,4 +99,8 @@ public class ManufacturingResultRepositoryTests {
     public void test_delete_manual_check(){
         repository.deleteByBarcodeAndFeatureNameAndTestItem(barcodeToDelete,featureNameToDelete,testItemToDelete);
     }
+
+    public void test_save_simple_result_manual_check(){
+
+    }
 }//class
