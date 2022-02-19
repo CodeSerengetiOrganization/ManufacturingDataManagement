@@ -1,27 +1,26 @@
 package com.mytech.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
- * @date 2021-09-17
+ * @date 2021-11-12
  * @description :
  */
 @Data
 @SuperBuilder
-@Entity
-@Table(name = "t_manufacturing_complex_result")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class ManufacturingResult {
-
+public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "f_id")
@@ -56,9 +55,9 @@ public class ManufacturingResult {
     @NotBlank(message = "testItem is null")
     private String testItem;
 
-    @Column(name = "f_result")
+/*    @Column(name = "f_result")
     @NotNull(message = "manufacturing result value is null")
-    private Double result;
+    private Double result;*/
 
     @Column(name = "f_operator")
     @NotBlank(message = "operator is blank(either null or empty)")
@@ -76,6 +75,5 @@ public class ManufacturingResult {
     private String comment;
 
     @Tolerate
-    public ManufacturingResult(){}
-
-}//class
+    public Result(){}
+}
