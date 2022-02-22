@@ -2,14 +2,18 @@ package com.mytech.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.repository.ManufacturingResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -54,7 +58,7 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
        System.out.println("resultHashSet:"+resultHashSet);
         repository.deleteAll(resultHashSet);
 
-//        if (resultSet.contains(null)) throw new NullPointerException("service found: at least one of the ManufacturingResult instance to delete is null");
+//        if (resultSet.contains(null)) throw new NullPointerException("service found: at least one of the ComplexManufacturingResult instance to delete is null");
 //        repository.deleteAll(resultSet);
         return resultSet.size();
 
@@ -68,5 +72,21 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
     @Override
     public void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem) {
         repository.deleteByBarcodeAndFeatureNameAndTestItem(barcode, featureName, testItem);
+    }
+
+    /*
+    This method is to extract test items and test results from local test file(ie, created by scanner)
+     @para filePath: the path of text file from which to extract test results
+     */
+    @Override
+    public int convertLocalFileToDB(String filePath) throws IOException {
+        FileReader fileReader = new FileReader(filePath);
+        BufferedReader bufferedReader= new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        String[] split = line.split(":");
+        for (String item :split) {
+            System.out.print(item);
+        }
+        return 1;
     }
 }//ManufacturingResultServiceImpl

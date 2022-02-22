@@ -1,5 +1,6 @@
 package com.mytech.savecommand;
 
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 
 /**
@@ -8,5 +9,5 @@ import com.mytech.domain.ManufacturingResult;
  * @description :
  */
 public interface IManufactCommand {
-    <E extends ManufacturingResult> E execute(E e);
+    <E extends ManufacturingResult> E execute(IManufactCommand command,E e);
 }

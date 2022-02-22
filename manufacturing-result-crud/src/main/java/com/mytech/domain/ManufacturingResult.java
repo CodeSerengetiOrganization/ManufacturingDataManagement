@@ -5,10 +5,7 @@ import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -20,7 +17,10 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder
-public class Result {
+//@Entity
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name= "ALARM_TYPE")
+public class ManufacturingResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "f_id")
@@ -75,5 +75,5 @@ public class Result {
     private String comment;
 
     @Tolerate
-    public Result(){}
+    public ManufacturingResult(){}
 }

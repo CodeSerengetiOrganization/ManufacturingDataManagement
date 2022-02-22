@@ -1,8 +1,8 @@
 package com.mytech.repository;
 
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;

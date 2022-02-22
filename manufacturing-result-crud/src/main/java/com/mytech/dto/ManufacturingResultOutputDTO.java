@@ -1,6 +1,6 @@
 package com.mytech.dto;
 
-import com.mytech.domain.ManufacturingResult;
+import com.mytech.domain.ComplexManufacturingResult;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
@@ -21,17 +21,17 @@ public class ManufacturingResultOutputDTO extends ManufacturingResultDTO {
     @Tolerate
     public ManufacturingResultOutputDTO(){}
 
-    public static ManufacturingResultOutputDTO convertToDTO(ManufacturingResult manufacturingResult){
+    public static ManufacturingResultOutputDTO convertToDTO(ComplexManufacturingResult complexManufacturingResult){
         ManufacturingResultOutputDTOConverter converter=new ManufacturingResultOutputDTOConverter();
-        return converter.convert(manufacturingResult);
+        return converter.convert(complexManufacturingResult);
     }
 
-    private static class ManufacturingResultOutputDTOConverter implements Converter<ManufacturingResult,ManufacturingResultOutputDTO>{
+    private static class ManufacturingResultOutputDTOConverter implements Converter<ComplexManufacturingResult,ManufacturingResultOutputDTO>{
 
         @Override
-        public ManufacturingResultOutputDTO convert(ManufacturingResult manufacturingResult) {
+        public ManufacturingResultOutputDTO convert(ComplexManufacturingResult complexManufacturingResult) {
             ManufacturingResultOutputDTO outputDTO =new ManufacturingResultOutputDTO();
-            BeanUtils.copyProperties(manufacturingResult,outputDTO);
+            BeanUtils.copyProperties(complexManufacturingResult,outputDTO);
             return outputDTO;
         }
     }

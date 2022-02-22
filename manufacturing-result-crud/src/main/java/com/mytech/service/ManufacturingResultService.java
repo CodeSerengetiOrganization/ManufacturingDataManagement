@@ -1,9 +1,11 @@
 package com.mytech.service;
 
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -23,4 +25,5 @@ public interface ManufacturingResultService {
     void deleteByBarcode(String barcode);
     @Transactional
     void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem);
+    int convertLocalFileToDB(String filePath) throws IOException;
 }

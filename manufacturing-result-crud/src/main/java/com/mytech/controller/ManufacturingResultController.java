@@ -2,14 +2,13 @@ package com.mytech.controller;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import com.mytech.domain.ManufacturingResult;
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.dto.ManufacturingResultInputDTO;
 import com.mytech.dto.ManufacturingResultOutputDTO;
 import com.mytech.savecommand.CommandFactory;
 import com.mytech.savecommand.IManufactCommand;
 import com.mytech.savecommand.SaveCommandInvoker;
 import com.mytech.service.ManufacturingResultService;
-import com.mytech.service.ManufacturingResultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -39,8 +38,8 @@ public class ManufacturingResultController {
     @ResponseStatus(HttpStatus.CREATED)
     public ManufacturingResultOutputDTO saveResult(@RequestBody ManufacturingResultInputDTO inputDTO){
         Preconditions.checkNotNull(inputDTO,"inputDTO is null");
-        ManufacturingResult result = inputDTO.convertToManufacturingResult();
-        ManufacturingResult savedResult = resultService.save(result);
+        ComplexManufacturingResult result = inputDTO.convertToManufacturingResult();
+        ComplexManufacturingResult savedResult = resultService.save(result);
         return ManufacturingResultOutputDTO.convertToDTO(savedResult);
     }
 
@@ -51,12 +50,13 @@ public class ManufacturingResultController {
         Map<String,ManufacturingResultOutputDTO> returnMap= Maps.newHashMap();
         for (Map.Entry<String,ManufacturingResultInputDTO> entries:inputMap.entrySet()) {
             String commandKey=entries.getKey();
-            if (commandKey==null) throw new RuntimeException("key of inputMap from front end is null");
-            IManufactCommand concreatCommand = commandFactory.getCommand(commandKey);
-//            saveCommandInvoker.setSaveCommand(concreatCommand);
+            if (commandKey==null) throw new RuntimeException("key of inputMap from front end is null");// todo: update it to KeyNullException
+            IManufactCommand concreteCommand = commandFactory.getCommand(commandKey);
+            if (null==concreteCommand) throw new RuntimeException("concrete Command is null");// todo: update ti to ConcreteCommandNullException
+//            saveCommandInvoker.setSaveCommand(concreteCommand);
             ManufacturingResultInputDTO inputDTO = entries.getValue();
-            ManufacturingResult result = inputDTO.convertToManufacturingResult();
-            ManufacturingResult savedResult = saveCommandInvoker.saveManufacturingResult2(concreatCommand,result);
+            ComplexManufacturingResult result = inputDTO.convertToManufacturingResult();
+            ComplexManufacturingResult savedResult = saveCommandInvoker.saveManufacturingResult2(concreteCommand,result);
             returnMap.put(commandKey,ManufacturingResultOutputDTO.convertToDTO(savedResult));
         }
         return returnMap;
