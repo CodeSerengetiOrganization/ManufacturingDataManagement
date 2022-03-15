@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder
-//@Entity
-@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name= "ALARM_TYPE")
+@Entity
+@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name= "ALARM_TYPE")
 public class ManufacturingResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
