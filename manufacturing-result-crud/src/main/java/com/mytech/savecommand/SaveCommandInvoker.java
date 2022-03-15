@@ -1,8 +1,8 @@
 package com.mytech.savecommand;
 
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,12 +20,7 @@ public class SaveCommandInvoker {
         this.saveCommand = saveCommand;
     }*/
 
-    public <E extends ManufacturingResult> E saveManufacturingResult(E manufacturingResult){
-//        return saveCommand.execute(manufacturingResult);
-        return null;
-    }
-
-    public <E extends ManufacturingResult> E saveManufacturingResult2(IManufactCommand command,E manufacturingResult){
-        return command.execute(manufacturingResult);
+    public <E extends ManufacturingResult> E saveManufacturingResult2(IManufactCommand command, E manufacturingResult){
+        return (E) command.execute(command,manufacturingResult);
     }
 }

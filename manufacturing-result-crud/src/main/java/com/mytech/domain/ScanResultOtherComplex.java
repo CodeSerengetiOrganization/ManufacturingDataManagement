@@ -15,6 +15,6 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Deprecated
-public class ScanResultOther extends ManufacturingResult {
+public class ScanResultOtherComplex extends ComplexManufacturingResult {
 
 }

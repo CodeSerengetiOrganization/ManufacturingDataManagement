@@ -1,13 +1,11 @@
 package com.mytech.dto;
 
-import com.mytech.domain.ManufacturingResult;
+import com.mytech.domain.ComplexManufacturingResult;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
-
-import javax.validation.constraints.NotBlank;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
@@ -34,16 +32,16 @@ public class ManufacturingResultInputDTO extends ManufacturingResultDTO{
         return this.barcode;
     }*/
 
-    public ManufacturingResult convertToManufacturingResult(){
+    public ComplexManufacturingResult convertToManufacturingResult(){
         ManufacturingResultInputDTOConverter converter=new ManufacturingResultInputDTOConverter();
         return converter.convert(this);
     }
 
-    private static class ManufacturingResultInputDTOConverter implements Converter<ManufacturingResultInputDTO, ManufacturingResult>{
+    private static class ManufacturingResultInputDTOConverter implements Converter<ManufacturingResultInputDTO, ComplexManufacturingResult>{
 
         @Override
-        public ManufacturingResult convert(ManufacturingResultInputDTO manufacturingResultInputDTO) {
-            ManufacturingResult result= new ManufacturingResult();
+        public ComplexManufacturingResult convert(ManufacturingResultInputDTO manufacturingResultInputDTO) {
+            ComplexManufacturingResult result= new ComplexManufacturingResult();
             BeanUtils.copyProperties(manufacturingResultInputDTO,result);
             return result;
         }

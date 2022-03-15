@@ -17,7 +17,10 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder
-public class Result {
+@Entity
+@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name= "ALARM_TYPE")
+public class ManufacturingResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "f_id")
@@ -72,5 +75,5 @@ public class Result {
     private String comment;
 
     @Tolerate
-    public Result(){}
+    public ManufacturingResult(){}
 }

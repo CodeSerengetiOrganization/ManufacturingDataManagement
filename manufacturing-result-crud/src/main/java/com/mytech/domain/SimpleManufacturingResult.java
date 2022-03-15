@@ -1,6 +1,5 @@
 package com.mytech.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -22,7 +21,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper =true)
 @MappedSuperclass
 @Table(name = "t_manufacturing_simple_result")
-public class SimpleManufacturingResult extends Result{
+public class SimpleManufacturingResult extends ManufacturingResult {
     @Column(name = "f_result")
     @NotNull(message = "manufacturing result value is null")
     private Boolean result;

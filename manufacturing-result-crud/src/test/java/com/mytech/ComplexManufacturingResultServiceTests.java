@@ -1,6 +1,7 @@
 package com.mytech;
 
 import com.google.common.collect.Sets;
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.repository.ManufacturingResultRepository;
 import com.mytech.service.ManufacturingResultServiceImpl;
@@ -19,7 +20,7 @@ import java.util.HashSet;
  * @description :
  */
 @SpringBootTest
-public class ManufacturingResultServiceTests {
+public class ComplexManufacturingResultServiceTests {
 
     @Autowired
     ManufacturingResultServiceImpl resultService;
@@ -27,16 +28,16 @@ public class ManufacturingResultServiceTests {
     ManufacturingResultRepository resultRepository;
     String barcodeToDelete="barcodeToDelete";
     //for group delete
-    ManufacturingResult firstResult;
-    ManufacturingResult secondResult;
-    ManufacturingResult thirdResult;
+    ComplexManufacturingResult firstResult;
+    ComplexManufacturingResult secondResult;
+    ComplexManufacturingResult thirdResult;
 
 
     @Test
     public void prepare_result_for_deleting(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ManufacturingResult manufacturingResult = ManufacturingResult.builder().barcode(barcodeToDelete)
+        ComplexManufacturingResult complexManufacturingResult = ComplexManufacturingResult.builder().barcode(barcodeToDelete)
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -49,14 +50,14 @@ public class ManufacturingResultServiceTests {
                 .endTime(endTime)
                 .comment("created by service test program for deleting")
                 .build();
-        ManufacturingResult saved = resultService.save(manufacturingResult);
+        ComplexManufacturingResult saved = resultService.save(complexManufacturingResult);
     }
 
     @Test
     public void test_delete_result_manual_check(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ManufacturingResult resultToDelete = ManufacturingResult.builder().barcode(barcodeToDelete)
+        ComplexManufacturingResult resultToDelete = ComplexManufacturingResult.builder().barcode(barcodeToDelete)
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -77,7 +78,7 @@ public class ManufacturingResultServiceTests {
     public void prepare_for_deleting_multiple_results(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        firstResult = ManufacturingResult.builder().barcode("first product")
+        firstResult = ComplexManufacturingResult.builder().barcode("first product")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -93,13 +94,13 @@ public class ManufacturingResultServiceTests {
         System.out.println("firstResult Hashcode:"+ firstResult.hashCode());
         resultRepository.saveAndFlush(firstResult);
 
-        secondResult=new ManufacturingResult();
+        secondResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,secondResult);
         secondResult.setBarcode("second product");
         System.out.println("secondResult Hashcode:"+secondResult.hashCode());
         resultRepository.saveAndFlush(secondResult);
 
-        thirdResult=new ManufacturingResult();
+        thirdResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,thirdResult);
         thirdResult.setBarcode("third product");
         System.out.println("thirdResult Hashcode:"+thirdResult.hashCode());
@@ -111,7 +112,7 @@ public class ManufacturingResultServiceTests {
     public void prepare_for_deleting_multiple_results2(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        firstResult = ManufacturingResult.builder().barcode("first product")
+        firstResult = ComplexManufacturingResult.builder().barcode("first product")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -124,14 +125,14 @@ public class ManufacturingResultServiceTests {
                 .endTime(endTime)
                 .comment("created by service test program for deleting")
                 .build();
-        secondResult=new ManufacturingResult();
+        secondResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,secondResult);
         secondResult.setBarcode("second product");
-        thirdResult=new ManufacturingResult();
+        thirdResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,thirdResult);
         thirdResult.setBarcode("third product");
-        HashSet<ManufacturingResult> resultHashSet = Sets.newHashSet(firstResult, secondResult, thirdResult);
-        for (ManufacturingResult result:resultHashSet) {
+        HashSet<ComplexManufacturingResult> resultHashSet = Sets.newHashSet(firstResult, secondResult, thirdResult);
+        for (ComplexManufacturingResult result:resultHashSet) {
             System.out.println("result:"+result);
         }
         resultRepository.saveAll(resultHashSet);
@@ -140,7 +141,7 @@ public class ManufacturingResultServiceTests {
     public void deleting_multiple_results_manual_check(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        firstResult = ManufacturingResult.builder().barcode("first product")
+        firstResult = ComplexManufacturingResult.builder().barcode("first product")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -151,10 +152,10 @@ public class ManufacturingResultServiceTests {
                 .operator("AliceTest")
                 .comment("created by service test program for deleting")
                 .build();
-        secondResult=new ManufacturingResult();
+        secondResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,secondResult);
         secondResult.setBarcode("second product");
-        thirdResult=new ManufacturingResult();
+        thirdResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,thirdResult);
         thirdResult.setBarcode("third product");
         HashSet<ManufacturingResult> resultSetToDelete = Sets.newHashSet(firstResult, secondResult, thirdResult);
