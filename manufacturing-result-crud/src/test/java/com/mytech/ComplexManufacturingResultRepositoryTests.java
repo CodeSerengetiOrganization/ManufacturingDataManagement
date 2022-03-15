@@ -1,7 +1,7 @@
 package com.mytech;
 
-import com.mytech.domain.ManufacturingResult;
-import com.mytech.domain.ScanResult;
+import com.mytech.domain.ComplexManufacturingResult;
+import com.mytech.domain.ScanResultComplex;
 import com.mytech.repository.ManufacturingResultRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @description :
  */
 @SpringBootTest
-public class ManufacturingResultRepositoryTests {
+public class ComplexManufacturingResultRepositoryTests {
 
     @Autowired
     ManufacturingResultRepository repository;
@@ -27,7 +27,7 @@ public class ManufacturingResultRepositoryTests {
     public void test_save_into_db(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ScanResult scanResult = ScanResult.builder().barcode("Ford_U553_CCB_001_test")
+        ScanResultComplex scanResult = ScanResultComplex.builder().barcode("Ford_U553_CCB_001_test")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -40,7 +40,7 @@ public class ManufacturingResultRepositoryTests {
                 .endTime(endTime)
                 .comment("created by repository test program")
                 .build();
-        ScanResult saved = repository.save(scanResult);
+        ScanResultComplex saved = repository.save(scanResult);
 //        Assertions.()
         Assertions.assertTrue(saved.getBarcode().equals(scanResult.getBarcode()),"barcode from database is not equal to original");
     }//test_save_into_db
@@ -49,7 +49,7 @@ public class ManufacturingResultRepositoryTests {
     public void test_save_manufacturing_result_into_db(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ManufacturingResult manufacturingResult = ManufacturingResult.builder().barcode("Ford_U553_CCB_001_test")
+        ComplexManufacturingResult complexManufacturingResult = ComplexManufacturingResult.builder().barcode("Ford_U553_CCB_001_test")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -62,9 +62,9 @@ public class ManufacturingResultRepositoryTests {
                 .endTime(endTime)
                 .comment("created by repository test program")
                 .build();
-        ManufacturingResult saved = repository.save(manufacturingResult);
+        ComplexManufacturingResult saved = repository.save(complexManufacturingResult);
 //        Assertions.()
-        Assertions.assertTrue(saved.getBarcode().equals(manufacturingResult.getBarcode()),"barcode from database is not equal to original");
+        Assertions.assertTrue(saved.getBarcode().equals(complexManufacturingResult.getBarcode()),"barcode from database is not equal to original");
     }
 
     public void test_findByBarcode(){
@@ -75,7 +75,7 @@ public class ManufacturingResultRepositoryTests {
     public void save_into_db_for_deleting(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ManufacturingResult manufacturingResult = ManufacturingResult.builder().barcode(barcodeToDelete)
+        ComplexManufacturingResult complexManufacturingResult = ComplexManufacturingResult.builder().barcode(barcodeToDelete)
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -88,7 +88,7 @@ public class ManufacturingResultRepositoryTests {
                 .endTime(endTime)
                 .comment("created by repository test program for deleting")
                 .build();
-        ManufacturingResult saved = repository.save(manufacturingResult);
+        ComplexManufacturingResult saved = repository.save(complexManufacturingResult);
     }
     @Test
     public void test_deleteByBarcode_manual_check(){

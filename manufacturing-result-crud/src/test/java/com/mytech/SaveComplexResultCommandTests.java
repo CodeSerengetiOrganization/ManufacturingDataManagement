@@ -1,8 +1,6 @@
 package com.mytech;
 
-import com.mytech.domain.ManufacturingResult;
-import com.mytech.domain.ScanResult;
-import com.mytech.domain.SimpleManufacturingResult;
+import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.savecommand.SaveComplexResultCommand;
 import com.mytech.service.ManufacturingResultServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -33,7 +30,7 @@ public class SaveComplexResultCommandTests {
     public void input_complex_manufacturing_result_should_pass(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
-        ManufacturingResult complexResult = ManufacturingResult.builder().barcode("correct complex result")
+        ComplexManufacturingResult complexResult = ComplexManufacturingResult.builder().barcode("correct complex result")
                 .productCode(1)
                 .featureType("clip")
                 .featureName("TP12")
@@ -46,20 +43,20 @@ public class SaveComplexResultCommandTests {
                 .endTime(endTime)
                 .comment("created by SaveComplexResultCommandTests test program")
                 .build();
-        BDDMockito.given(saveComplexResultCommand.execute(complexResult)).willReturn(complexResult);
-        Assertions.assertTrue(complexResult.equals(saveComplexResultCommand.execute(complexResult)),"returned object not equals to orginal one");
+        BDDMockito.given(saveComplexResultCommand.execute(saveComplexResultCommand,complexResult)).willReturn(complexResult);
+        Assertions.assertTrue(complexResult.equals(saveComplexResultCommand.execute(saveComplexResultCommand,complexResult)),"returned object not equals to orginal one");
 
     }
 
     @Test
     public void input_manufacturing_result_with_null_should_throw_exception(){
-        ManufacturingResult nullResult=null;
-//        ManufacturingResult executeResult = saveComplexResultCommand.execute(null);
+        ComplexManufacturingResult nullResult=null;
+//        ComplexManufacturingResult executeResult = saveComplexResultCommand.execute(null);
 
         //the following does NOT work,
 //        Assertions.assertThrows(NullPointerException.class,saveComplexResultCommand.execute(null));
         //this lambda expression style works
-        Assertions.assertThrows(NullPointerException.class,()->{saveComplexResultCommand.execute(nullResult);});
+        Assertions.assertThrows(NullPointerException.class,()->{saveComplexResultCommand.execute(saveComplexResultCommand,nullResult);});
     }
 
     public void input_simple_manufacturing_result_should_throw_exception(){
