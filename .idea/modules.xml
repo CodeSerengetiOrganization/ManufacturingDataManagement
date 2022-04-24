@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/manufacturing-result-crud/manufacturing-result-crud.iml" filepath="$PROJECT_DIR$/manufacturing-result-crud/manufacturing-result-crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manufacturingdatamanagement.iml" filepath="$PROJECT_DIR$/manufacturingdatamanagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/public-module/public-module.iml" filepath="$PROJECT_DIR$/public-module/public-module.iml" />
+    </modules>
+  </component>
+</project>
