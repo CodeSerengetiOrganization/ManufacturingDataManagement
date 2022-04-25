@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @description :
  */
 @Data
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 //@DiscriminatorColumn(name= "ALARM_TYPE")

@@ -6,6 +6,8 @@ import com.mytech.domain.ManufacturingResult;
 import com.mytech.service.ManufacturingResultService;
 import lombok.Builder;
 import lombok.Data;
+//import lombok.experimental.Builder;
+//import lombok.experimental.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,8 @@ import org.springframework.stereotype.Component;
  * @date 2021-11-04
  * @description :
  */
+@lombok.Builder
 @Data
-@Builder
 @Component
 public class SaveComplexResultCommand implements IManufactCommand {
     @Autowired

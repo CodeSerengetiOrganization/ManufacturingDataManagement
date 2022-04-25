@@ -23,7 +23,7 @@ public class ComplexManufacturingResultRepositoryTests {
     private String barcodeToDelete="Ford_U553_CCB_001_test_for_deleting";
     private String featureNameToDelete="TP12";
     private String testItemToDelete="TP12 height";
-    @Test
+/*    @Test
     public void test_save_into_db(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
@@ -43,7 +43,7 @@ public class ComplexManufacturingResultRepositoryTests {
         ScanResultComplex saved = repository.save(scanResult);
 //        Assertions.()
         Assertions.assertTrue(saved.getBarcode().equals(scanResult.getBarcode()),"barcode from database is not equal to original");
-    }//test_save_into_db
+    }//test_save_into_db*/
 
     @Test
     public void test_save_manufacturing_result_into_db(){
