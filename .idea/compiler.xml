@@ -15,6 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="localresultconvert" target="$1.8" />
       <module name="manufacturing-result-crud" target="$1.8" />
       <module name="manufacturingdatamanagement" target="$1.8" />
       <module name="public-module" target="$1.8" />

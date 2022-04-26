@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>manufacturing-result-crud</module>
+        <module>local-result-convert</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
