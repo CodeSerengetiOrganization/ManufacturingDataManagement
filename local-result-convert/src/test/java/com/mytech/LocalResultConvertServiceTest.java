@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +51,16 @@ public class LocalResultConvertServiceTest {
 
     @Test
     public void ifFolderInUrlShouldOnlyReturnFileNames() throws IOException {
+        String url="G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\programmerB\\LocalTestFileFolder\\BothFileAndFolderInThisFolder";
+        List<String> fileNameList = convertService.convertAndSaveLocalTestFiles(url,"txt");
+        String fileNameString = fileNameList.toString();
+        System.out.println("fileNameString:"+fileNameString);
+        Assertions.assertTrue(fileNameString.contains("testFile2019.01.01"),"txt files are not found");
+        Assertions.assertTrue(!fileNameString.contains("New folder"),"data files are found");
+    }
+
+    @Test
+    public void ifBothTxtAndDataExtendedFilesShouldOnlyReturnTxtFileName() throws IOException {
         String url="G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\programmerB\\LocalTestFileFolder\\BothTxtAndDataExtended";
         List<String> fileNameList = convertService.convertAndSaveLocalTestFiles(url,"txt");
         String fileNameString = fileNameList.toString();
@@ -56,8 +70,43 @@ public class LocalResultConvertServiceTest {
     }
 
     @Test
-    public void ifBothTxtAndDataExtendedFilesShouldOnlyReturnTxtFileName(){
-
+    public void privateGivenPassFileShouldGetPassResult() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        int arrSizeIfPass=7;
+        int arrSizeIfFail=8;
+        String failSymbol="BAD";
+        File file=new File("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\Result_RBTA_11664_48_1_2_03.18.44.txt");
+        Class<?> clazz = Class.forName("com.mytech.service.LocalResultConvertService");
+        Method parseLocalTestFileMethod = clazz.getDeclaredMethod("parseLocalTestFile", File.class,int.class,int.class,String.class);
+        parseLocalTestFileMethod.setAccessible(true);
+        parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);
     }
 
+    @Test
+    public void privateGivenFailedFileShouldGetFailResult() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        int arrSizeIfPass=7;
+        int arrSizeIfFail=8;
+        String failSymbol="BAD";
+        File file=new File("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt");
+        Class<?> clazz = Class.forName("com.mytech.service.LocalResultConvertService");
+        Method parseLocalTestFileMethod = clazz.getDeclaredMethod("parseLocalTestFile", File.class,int.class,int.class,String.class);
+        parseLocalTestFileMethod.setAccessible(true);
+        parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);
+    }
+
+    /*
+    * In this test, parseLocalTestFileMethod could successfully throw FileNotFoundException, but then wrapped to java.lang.reflect.InvocationTargetException by org.opentest4j.
+    * So, consider it as it pass the test
+    * */
+    @Test
+    public void privateGivenInvalidFileShouldThrowException() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        int arrSizeIfPass=7;
+        int arrSizeIfFail=8;
+        String failSymbol="BAD";
+        File file=new File("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\INVALID_FILE_NAME.txt");
+        Class<?> clazz = Class.forName("com.mytech.service.LocalResultConvertService");
+        Method parseLocalTestFileMethod = clazz.getDeclaredMethod("parseLocalTestFile", File.class,int.class,int.class,String.class);
+        parseLocalTestFileMethod.setAccessible(true);
+//        parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);
+        Assertions.assertThrows(FileNotFoundException.class,()->{parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);});
+    }
 }//LocalResultConvertServiceTest
