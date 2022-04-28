@@ -42,6 +42,7 @@ public class LocalResultConvertService {
         for (File file: filesInFolder) {
             if (file.isFile()){
                 fileNameList.add(file.getName());
+                parseLocalTestFile(file,7,8,"BAD");
             }//if
         }//for
         return fileNameList;

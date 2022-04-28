@@ -70,6 +70,11 @@ public class LocalResultConvertServiceTest {
     }
 
     @Test
+    public void givenCorrectFilePathShouldPrintFileNameInfo() throws IOException {
+        String urlWithFileName="G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\Result_RBTA_11664_48_1_2_03.18.44.txt";
+        convertService.convertAndSaveLocalTestFiles(urlWithFileName,"txt");
+    }
+    @Test
     public void privateGivenPassFileShouldGetPassResult() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         int arrSizeIfPass=7;
         int arrSizeIfFail=8;
