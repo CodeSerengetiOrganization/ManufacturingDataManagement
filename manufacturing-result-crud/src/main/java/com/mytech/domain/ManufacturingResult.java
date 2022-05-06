@@ -6,6 +6,7 @@ import lombok.experimental.Tolerate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -17,10 +18,10 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder(toBuilder = true)
-@Entity
+@MappedSuperclass
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 //@DiscriminatorColumn(name= "ALARM_TYPE")
-public class ManufacturingResult {
+public abstract class ManufacturingResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "f_id")

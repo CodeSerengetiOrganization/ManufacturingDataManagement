@@ -92,18 +92,21 @@ public class ComplexManufacturingResultServiceTests {
                 .comment("created by service test program for deleting")
                 .build();
         System.out.println("firstResult Hashcode:"+ firstResult.hashCode());
-        resultRepository.saveAndFlush(firstResult);
+        System.out.println("firstResult:"+ firstResult);
+        resultRepository.save(firstResult);
 
         secondResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,secondResult);
         secondResult.setBarcode("second product");
         System.out.println("secondResult Hashcode:"+secondResult.hashCode());
-        resultRepository.saveAndFlush(secondResult);
+        System.out.println("secondResult:"+ secondResult);
+        resultRepository.save(secondResult);
 
         thirdResult=new ComplexManufacturingResult();
         BeanUtils.copyProperties(firstResult,thirdResult);
         thirdResult.setBarcode("third product");
         System.out.println("thirdResult Hashcode:"+thirdResult.hashCode());
+        System.out.println("thirdResult:"+ thirdResult);
         resultRepository.saveAndFlush(thirdResult);
 
     }
@@ -162,5 +165,6 @@ public class ComplexManufacturingResultServiceTests {
         Integer deleteCount = resultService.delete(resultSetToDelete);
         Assertions.assertEquals(3,deleteCount);
     }
+
 
 }

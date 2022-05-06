@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @Entity
 @EqualsAndHashCode(callSuper =true)
-@MappedSuperclass
 @Table(name = "t_manufacturing_simple_result")
 public class SimpleManufacturingResult extends ManufacturingResult {
     @Column(name = "f_result")

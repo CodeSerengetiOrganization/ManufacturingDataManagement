@@ -114,4 +114,25 @@ public class LocalResultConvertServiceTest {
 //        parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);
         Assertions.assertThrows(FileNotFoundException.class,()->{parseLocalTestFileMethod.invoke(convertService,file,arrSizeIfPass,arrSizeIfFail,failSymbol);});
     }
+
+    @Test
+    public void privateGivenValidFileShouldPrintAllLines() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+//        File file=new File("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt");
+        File file=new File("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt");
+        Class<?> clazz = Class.forName("com.mytech.service.LocalResultConvertService");
+        Method readFileContentMethod = clazz.getDeclaredMethod("readFileContent", File.class);
+        readFileContentMethod.setAccessible(true);
+        readFileContentMethod.invoke(convertService,file);
+    }
+
+    @Test
+    public void privateGetBarCodeSimuShouldReturnString() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> clazz = Class.forName("com.mytech.service.LocalResultConvertService");
+        Method getBarCodeSimuMethod = clazz.getDeclaredMethod("getBarCodeSimu");
+        getBarCodeSimuMethod.setAccessible(true);
+        String randomBarcode = (String) getBarCodeSimuMethod.invoke(convertService);
+        System.out.println("randomBarcode:"+randomBarcode);
+        Assertions.assertTrue(randomBarcode.length()==10,"String length is not correct" );
+
+    }
 }//LocalResultConvertServiceTest

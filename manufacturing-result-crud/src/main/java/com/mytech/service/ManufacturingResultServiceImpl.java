@@ -30,14 +30,15 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
         return repository.save(entity);
     }
 
+
     @Override
     public void delete(ManufacturingResult entity) {
         Preconditions.checkNotNull(entity,"entity to delete is null");
         ExampleMatcher exampleMatcher = ExampleMatcher.matching()
                 .withIgnoreNullValues()
-/*                .withIgnorePaths("id")
+                .withIgnorePaths("id")
                 .withIgnorePaths("startTime")
-                .withIgnorePaths("endTime")*/;
+                .withIgnorePaths("endTime");
         Example<ManufacturingResult> resultExample = Example.of(entity,exampleMatcher);
         Optional<ManufacturingResult> optionalResult = repository.findOne(resultExample);
         if (optionalResult.isPresent()) repository.delete(optionalResult.get());
