@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
+import com.mytech.repository.ComplexResultRepository;
 import com.mytech.repository.ManufacturingResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -24,7 +25,7 @@ import java.util.*;
 @Service("complexResultServiceImpl")
 public class ManufacturingResultServiceImpl implements ManufacturingResultService {
     @Autowired
-    ManufacturingResultRepository repository;
+    ComplexResultRepository repository;
     @Override
     public <S extends ManufacturingResult> S save(S entity) {
         return repository.save(entity);
@@ -67,13 +68,23 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
 
     @Override
     public void deleteByBarcode(String barcode) {
-        repository.deleteByBarcode(barcode);
+
     }
 
     @Override
     public void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem) {
-        repository.deleteByBarcodeAndFeatureNameAndTestItem(barcode, featureName, testItem);
+
     }
+
+//    @Override
+//    public void deleteByBarcode(String barcode) {
+//        repository.deleteByBarcode(barcode);
+//    }
+//
+//    @Override
+//    public void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem) {
+//        repository.deleteByBarcodeAndFeatureNameAndTestItem(barcode, featureName, testItem);
+//    }
 
     /*
     This method is to extract test items and test results from local test file(ie, created by scanner)

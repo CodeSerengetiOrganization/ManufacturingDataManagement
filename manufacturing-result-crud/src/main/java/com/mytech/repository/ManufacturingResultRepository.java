@@ -23,8 +23,5 @@ public interface ManufacturingResultRepository extends JpaRepository<Manufacturi
 //    //4.delete
 ////    void delete(ManufacturingResult entity);
 ////    <S extends ManufacturingResult> void  delete(S entity);
-//    @Transactional
-//    void deleteByBarcode(String barcode);
-//    @Transactional
-//    void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem);
+
 }
