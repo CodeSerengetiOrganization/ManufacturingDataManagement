@@ -2,6 +2,7 @@ package com.mytech;
 
 import com.google.common.collect.Sets;
 import com.mytech.domain.ComplexManufacturingResult;
+import com.mytech.domain.ManufacturingResult;
 import com.mytech.domain.ScanResultComplex;
 import com.mytech.repository.ComplexResultRepository;
 import com.mytech.repository.ManufacturingResultRepository;
@@ -9,9 +10,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
@@ -65,7 +70,7 @@ public class ComplexManufacturingResultRepositoryTests {
                 .endTime(endTime)
                 .comment("created by complex result repository test program")
                 .build();
-        ComplexManufacturingResult saved = repository.save(complexManufacturingResult);
+        ComplexManufacturingResult saved = (ComplexManufacturingResult) repository.save(complexManufacturingResult);
 //        Assertions.()
         Assertions.assertTrue(saved.getBarcode().equals(complexManufacturingResult.getBarcode()),"barcode from database is not equal to original");
     }
@@ -91,7 +96,7 @@ public class ComplexManufacturingResultRepositoryTests {
                 .endTime(endTime)
                 .comment("created by repository test program for deleting")
                 .build();
-        ComplexManufacturingResult saved = repository.save(complexManufacturingResult);
+        ComplexManufacturingResult saved = (ComplexManufacturingResult) repository.save(complexManufacturingResult);
     }
 //    @Test
 //    public void test_deleteByBarcode_manual_check(){
@@ -147,4 +152,33 @@ public class ComplexManufacturingResultRepositoryTests {
     public void testdeleteComplexManufacturingResultById(){
         repository.deleteComplexManufacturingResultById(12);
     }*/
+
+    @Test
+    public void testFindAllShouldPrintAllRecordsInDatabase(){
+        List<ComplexManufacturingResult> all = repository.findAll();
+
+        for (ComplexManufacturingResult c:all) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    public void testFindAllPagingShouldPrintPagedRecord(){
+        int page=1;
+        int size=2;
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC,"barcode");
+        Page<ComplexManufacturingResult> all = repository.findAll(pageRequest);
+        List<ComplexManufacturingResult> resultList = all.toList();
+        for (ComplexManufacturingResult c:resultList) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    public void testFindAllByBarcode(){
+        List<ComplexManufacturingResult> allByBarcode = repository.findAllByBarcode( "Ford_U553_CCB_001_test");
+        for (ComplexManufacturingResult c:allByBarcode) {
+            System.out.println(c);
+        }
+    }
 }//class

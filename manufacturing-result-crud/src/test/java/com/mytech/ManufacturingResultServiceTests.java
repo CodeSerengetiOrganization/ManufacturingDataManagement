@@ -1,3 +1,4 @@
+/*
 package com.mytech;
 
 import com.mytech.service.ManufacturingResultServiceImpl;
@@ -10,11 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
+*/
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
  * @date 2022-02-21
  * @description : test class for ManufacturingResultService
- */
+ *//*
+
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class ManufacturingResultServiceTests {
@@ -28,3 +31,4 @@ public class ManufacturingResultServiceTests {
         Assertions.assertTrue(numberOfFiles==1);
     }
 }//class
+*/
