@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.domain.SimpleManufacturingResult;
+import com.mytech.service.ComplexResultService;
 import com.mytech.service.ManufacturingResultService;
 import lombok.Builder;
 import lombok.Data;
@@ -20,12 +21,12 @@ import org.yaml.snakeyaml.scanner.ScannerImpl;
 @Data
 @Builder
 @Component
-public class SaveSimpleResultCommand implements IManufactCommand {
+public class SaveSimpleResultCommand<T extends ComplexManufacturingResult> implements IManufactCommand {
 //    @Autowired
 //    SaveSimpleResultCommand simpleResultCommand;
     @Autowired
-    @Qualifier(value="complexResultServiceImpl")
-    ManufacturingResultService service;
+//    @Qualifier(value="complexResultServiceImpl")
+    private ComplexResultService manufacturingResultService;
     @Override
     public <E extends ManufacturingResult> E execute(IManufactCommand command, E e) {
         Preconditions.checkNotNull(command,this.getClass().getSimpleName()+": the input arguement command is null");
@@ -36,6 +37,6 @@ public class SaveSimpleResultCommand implements IManufactCommand {
         Preconditions.checkArgument((e instanceof SimpleManufacturingResult),this.getClass().getSimpleName()+
                 ":class type of the object to save incorrect, expected:"+SimpleManufacturingResult.class.getSimpleName()+
                 ";actual: "+e.getClass().getSimpleName());
-        return service.save(e);
+        return (E) manufacturingResultService.save((ComplexManufacturingResult) e);
     }
 }

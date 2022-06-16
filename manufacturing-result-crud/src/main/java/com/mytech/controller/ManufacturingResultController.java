@@ -39,7 +39,7 @@ public class ManufacturingResultController {
     public ManufacturingResultOutputDTO saveResult(@RequestBody ManufacturingResultInputDTO inputDTO){
         Preconditions.checkNotNull(inputDTO,"inputDTO is null");
         ComplexManufacturingResult result = inputDTO.convertToManufacturingResult();
-        ComplexManufacturingResult savedResult = resultService.save(result);
+        ComplexManufacturingResult savedResult = (ComplexManufacturingResult) resultService.save(result);
         return ManufacturingResultOutputDTO.convertToDTO(savedResult);
     }
 

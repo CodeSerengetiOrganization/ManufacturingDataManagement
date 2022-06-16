@@ -14,6 +14,22 @@ import java.util.Set;
  * @description :
  */
 //@Service
+public interface ManufacturingResultService<T extends ManufacturingResult> {
+    //1.create
+    T save(T entity);
+    //4.delete
+    void delete(T entity);
+    @Transactional
+    Integer delete(Set<T> resultSet);
+    @Transactional
+    void deleteByBarcode(String barcode);
+    @Transactional
+    void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem);
+    int convertLocalFileToDB(String filePath) throws IOException;
+}
+
+/*
+//org code before using polymorphism
 public interface ManufacturingResultService {
     //1.create
     <S extends ManufacturingResult> S save(S entity);
@@ -26,4 +42,5 @@ public interface ManufacturingResultService {
     @Transactional
     void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem);
     int convertLocalFileToDB(String filePath) throws IOException;
-}
+}*/
+

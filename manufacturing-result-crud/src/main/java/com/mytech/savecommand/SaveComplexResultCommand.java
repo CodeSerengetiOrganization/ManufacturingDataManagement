@@ -3,6 +3,7 @@ package com.mytech.savecommand;
 import com.google.common.base.Preconditions;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
+import com.mytech.service.ComplexResultService;
 import com.mytech.service.ManufacturingResultService;
 import lombok.Builder;
 import lombok.Data;
@@ -20,11 +21,13 @@ import org.springframework.stereotype.Component;
 @lombok.Builder
 @Data
 @Component
-public class SaveComplexResultCommand implements IManufactCommand {
-    @Autowired
-    @Qualifier("complexResultServiceImpl")
-    ManufacturingResultService manufacturingResultService;
+public class SaveComplexResultCommand<T extends ComplexManufacturingResult> implements IManufactCommand {
+/*    @Autowired
+    @Qualifier("complexResultService")
+    private ManufacturingResultService manufacturingResultService;*/
 
+    @Autowired
+    private ComplexResultService manufacturingResultService;
     @Override
     public <E extends ManufacturingResult> E execute(IManufactCommand command, E e) {
         Preconditions.checkNotNull(e,"the manufacturing is null when try to execute in SaveComplexResultCommand:"+this.getClass());

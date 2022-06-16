@@ -3,6 +3,7 @@ package com.mytech;
 import com.google.common.collect.Sets;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
+import com.mytech.repository.ComplexResultRepository;
 import com.mytech.repository.ManufacturingResultRepository;
 import com.mytech.service.ManufacturingResultServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +26,7 @@ public class ComplexManufacturingResultServiceTests {
     @Autowired
     ManufacturingResultServiceImpl resultService;
     @Autowired
-    ManufacturingResultRepository resultRepository;
+    ComplexResultRepository resultRepository;
     String barcodeToDelete="barcodeToDelete";
     //for group delete
     ComplexManufacturingResult firstResult;
@@ -50,7 +51,7 @@ public class ComplexManufacturingResultServiceTests {
                 .endTime(endTime)
                 .comment("created by service test program for deleting")
                 .build();
-        ComplexManufacturingResult saved = resultService.save(complexManufacturingResult);
+        ComplexManufacturingResult saved = (ComplexManufacturingResult) resultService.save(complexManufacturingResult);
     }
 
     @Test

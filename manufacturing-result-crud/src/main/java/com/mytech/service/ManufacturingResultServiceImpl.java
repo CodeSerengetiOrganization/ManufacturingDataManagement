@@ -20,21 +20,14 @@ import java.util.*;
 
 */
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Sets;
-import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.repository.ComplexResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -43,13 +36,18 @@ import java.util.Set;
  * @description :
  */
 
-@Service("complexResultServiceImpl")
-public class ManufacturingResultServiceImpl implements ManufacturingResultService {
+@Service(value="complexResultServiceImpl")
+public class ManufacturingResultServiceImpl<T extends ManufacturingResult> implements ManufacturingResultService {
     @Autowired
     ComplexResultRepository repository;
 
+//    @Override
+//    public <S extends ManufacturingResult> S save(S entity) {
+//        return null;
+//    }
+
     @Override
-    public <S extends ManufacturingResult> S save(S entity) {
+    public ManufacturingResult save(ManufacturingResult entity) {
         return null;
     }
 
@@ -67,8 +65,10 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
 
     }
 
+
+
     @Override
-    public Integer delete(Set<ManufacturingResult> resultSet) {
+    public Integer delete(Set resultSet) {
         /*
         Preconditions.checkNotNull(resultSet,"service found:the result set to delete is null");
 
@@ -113,6 +113,7 @@ public class ManufacturingResultServiceImpl implements ManufacturingResultServic
 //
 
     @Override
+    @Deprecated //this is a business functionality, should in other module
     public int convertLocalFileToDB(String filePath) throws IOException {
         FileReader fileReader = new FileReader(filePath);
         BufferedReader bufferedReader= new BufferedReader(fileReader);
