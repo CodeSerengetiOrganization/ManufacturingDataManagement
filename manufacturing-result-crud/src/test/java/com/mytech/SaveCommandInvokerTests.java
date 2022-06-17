@@ -2,7 +2,6 @@ package com.mytech;
 
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.SimpleManufacturingResult;
-import com.mytech.savecommand.IManufactCommand;
 import com.mytech.savecommand.SaveCommandInvoker;
 import com.mytech.savecommand.SaveComplexResultCommand;
 import com.mytech.savecommand.SaveSimpleResultCommand;

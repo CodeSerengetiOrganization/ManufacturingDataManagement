@@ -2,7 +2,6 @@ package com.mytech.savecommand;
 
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,10 +16,10 @@ public class CommandFactory {
     @Autowired
     SaveComplexResultCommand complexResultCommand;
 
-    public IManufactCommand getCommand(String commandStr){
+    public IManufacturingResultSaveCommand getCommand(String commandStr){
         Preconditions.checkNotNull(commandStr,"command String is null, CommandFactory can not create command object");
-        if ("simpleResult".equals(commandStr)) return simpleResultCommand;
-        if ("complexResult".equals(commandStr)) return complexResultCommand;
+        if ("simpleresult".toLowerCase().equals(commandStr.toLowerCase())) return simpleResultCommand;
+        if ("complexResult".toLowerCase().equals(commandStr.toLowerCase())) return complexResultCommand;
         return null;
     }
 }

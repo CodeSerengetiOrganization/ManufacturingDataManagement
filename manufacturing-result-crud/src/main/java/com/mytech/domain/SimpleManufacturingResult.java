@@ -3,6 +3,7 @@ package com.mytech.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,4 +25,7 @@ public class SimpleManufacturingResult extends ManufacturingResult {
     @Column(name = "f_result")
     @NotNull(message = "manufacturing result value is null")
     private Boolean result;
+
+    @Tolerate
+    public SimpleManufacturingResult(){}
 }

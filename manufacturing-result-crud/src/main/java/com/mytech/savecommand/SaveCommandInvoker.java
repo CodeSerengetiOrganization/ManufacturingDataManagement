@@ -1,6 +1,5 @@
 package com.mytech.savecommand;
 
-import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -14,13 +13,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaveCommandInvoker {
 /*    @Autowired
-    private IManufactCommand saveCommand;
+    private IManufacturingResultSaveCommand saveCommand;
 
-    public SaveCommandInvoker(IManufactCommand saveCommand) {
+    public SaveCommandInvoker(IManufacturingResultSaveCommand saveCommand) {
         this.saveCommand = saveCommand;
     }*/
 
-    public <E extends ManufacturingResult> E saveManufacturingResult2(IManufactCommand command, E manufacturingResult){
+    public <E extends ManufacturingResult> E saveManufacturingResult2(IManufacturingResultSaveCommand command, E manufacturingResult){
         return (E) command.execute(command,manufacturingResult);
+    }
+
+    public <E extends ManufacturingResult> Iterable<E> saveAll(IManufacturingResultSaveCommand command, Iterable<E> it){
+        return command.execute(command,it);
     }
 }
