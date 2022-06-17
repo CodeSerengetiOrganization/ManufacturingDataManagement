@@ -35,7 +35,7 @@ import java.util.Set;
  * @date 2021-09-27
  * @description :
  */
-
+@Deprecated
 @Service(value="complexResultServiceImpl")
 public class ManufacturingResultServiceImpl<T extends ManufacturingResult> implements ManufacturingResultService {
     @Autowired
@@ -48,6 +48,11 @@ public class ManufacturingResultServiceImpl<T extends ManufacturingResult> imple
 
     @Override
     public ManufacturingResult save(ManufacturingResult entity) {
+        return null;
+    }
+
+    @Override
+    public Iterable saveAll(Iterable iterable) {
         return null;
     }
 

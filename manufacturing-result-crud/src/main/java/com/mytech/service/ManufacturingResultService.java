@@ -17,6 +17,7 @@ import java.util.Set;
 public interface ManufacturingResultService<T extends ManufacturingResult> {
     //1.create
     T save(T entity);
+    Iterable<T> saveAll(Iterable<T> iterable);
     //4.delete
     void delete(T entity);
     @Transactional

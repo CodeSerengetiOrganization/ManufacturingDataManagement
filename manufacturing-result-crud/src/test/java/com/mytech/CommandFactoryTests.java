@@ -1,7 +1,7 @@
 package com.mytech;
 
 import com.mytech.savecommand.CommandFactory;
-import com.mytech.savecommand.IManufactCommand;
+import com.mytech.savecommand.IManufacturingResultSaveCommand;
 import com.mytech.savecommand.SaveComplexResultCommand;
 import com.mytech.savecommand.SaveSimpleResultCommand;
 import org.junit.jupiter.api.Assertions;
@@ -20,24 +20,24 @@ public class CommandFactoryTests {
     CommandFactory commandFactory;
     @Test
     public void test_getCommand_with_simpleResult_string_should_pass(){
-        IManufactCommand simpleResult = commandFactory.getCommand("simpleResult");
+        IManufacturingResultSaveCommand simpleResult = commandFactory.getCommand("simpleResult");
         Assertions.assertTrue(simpleResult instanceof SaveSimpleResultCommand,"Incorrect class type: expected:"+SaveSimpleResultCommand.class.getSimpleName()+"; real class type:"+simpleResult.getClass().getSimpleName());
     }
 
     @Test
     public void test_getCommand_with_complexResult_string_should_pass(){
-        IManufactCommand complexResult = commandFactory.getCommand("complexResult");
+        IManufacturingResultSaveCommand complexResult = commandFactory.getCommand("complexResult");
         Assertions.assertTrue(complexResult instanceof SaveComplexResultCommand,"Incorrect class type: expected:"+SaveSimpleResultCommand.class.getSimpleName()+"; real class type:"+complexResult.getClass().getSimpleName());
 
     }
     @Test
     public void test_getCommand_with_incorrect_string_should_return_null(){
-        IManufactCommand incorrectCommand = commandFactory.getCommand("incorrect string");
+        IManufacturingResultSaveCommand incorrectCommand = commandFactory.getCommand("incorrect string");
         Assertions.assertNull(incorrectCommand,"command is not Null");
     }
     @Test
     public void test_getCommand_with_null_string_should_throw_exception(){
-//        IManufactCommand nullCommand = commandFactory.getCommand(null);
+//        IManufacturingResultSaveCommand nullCommand = commandFactory.getCommand(null);
         Assertions.assertThrows(NullPointerException.class,()->{commandFactory.getCommand(null);});
     }
 }//class

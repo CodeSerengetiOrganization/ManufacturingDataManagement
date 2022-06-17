@@ -28,23 +28,29 @@ public class ComplexResultService<T extends ComplexManufacturingResult> implemen
     }
 
     @Override
-    public void delete(ComplexManufacturingResult entity) {
+    public Iterable<ComplexManufacturingResult> saveAll(Iterable<ComplexManufacturingResult> iterable) {
+        return complexRepo.saveAll(iterable);
+    }
 
+    @Override
+    public void delete(ComplexManufacturingResult entity) {
+        complexRepo.delete(entity);
     }
 
     @Override
     public Integer delete(Set<ComplexManufacturingResult> resultSet) {
-        return null;
+        complexRepo.deleteAll(resultSet);
+        return resultSet.size();//todo:this may not right. as some of the object may not in database
     }
 
     @Override
     public void deleteByBarcode(String barcode) {
-
+        complexRepo.deleteComplexManufacturingResultByBarcode(barcode);
     }
 
     @Override
     public void deleteByBarcodeAndFeatureNameAndTestItem(String barcode, String featureName, String testItem) {
-
+        //todo:may not need it.
     }
 
     @Override

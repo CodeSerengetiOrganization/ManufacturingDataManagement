@@ -6,7 +6,7 @@ import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.dto.ManufacturingResultInputDTO;
 import com.mytech.dto.ManufacturingResultOutputDTO;
 import com.mytech.savecommand.CommandFactory;
-import com.mytech.savecommand.IManufactCommand;
+import com.mytech.savecommand.IManufacturingResultSaveCommand;
 import com.mytech.savecommand.SaveCommandInvoker;
 import com.mytech.service.ManufacturingResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class ManufacturingResultController {
         for (Map.Entry<String,ManufacturingResultInputDTO> entries:inputMap.entrySet()) {
             String commandKey=entries.getKey();
             if (commandKey==null) throw new RuntimeException("key of inputMap from front end is null");// todo: update it to KeyNullException
-            IManufactCommand concreteCommand = commandFactory.getCommand(commandKey);
+            IManufacturingResultSaveCommand concreteCommand = commandFactory.getCommand(commandKey);
             if (null==concreteCommand) throw new RuntimeException("concrete Command is null");// todo: update ti to ConcreteCommandNullException
 //            saveCommandInvoker.setSaveCommand(concreteCommand);
             ManufacturingResultInputDTO inputDTO = entries.getValue();
