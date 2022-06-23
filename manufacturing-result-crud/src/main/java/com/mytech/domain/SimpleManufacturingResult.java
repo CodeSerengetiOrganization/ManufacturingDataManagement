@@ -2,6 +2,7 @@ package com.mytech.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
 
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @Entity
 @EqualsAndHashCode(callSuper =true)
+@ToString(callSuper = true)
 @Table(name = "t_manufacturing_simple_result")
 public class SimpleManufacturingResult extends ManufacturingResult {
     @Column(name = "f_result")

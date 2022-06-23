@@ -1,8 +1,11 @@
 package com.mytech.savecommand;
 
+import com.google.common.collect.Lists;
 import com.mytech.domain.ManufacturingResult;
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
@@ -12,18 +15,24 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class SaveCommandInvoker {
-/*    @Autowired
-    private IManufacturingResultSaveCommand saveCommand;
 
-    public SaveCommandInvoker(IManufacturingResultSaveCommand saveCommand) {
-        this.saveCommand = saveCommand;
+    //todo: necessary to use polymorphism here? what about this:
+    //public List<ManufacturingResult> saveResult(Iterable<IManufacturingResultSaveCommand> commands)
+/*    public <E extends ManufacturingResult> List<E> saveResult(Iterable<IManufacturingResultSaveCommand> commands){
+        List<E> savedList= Lists.newArrayList();
+        for (IManufacturingResultSaveCommand command: commands) {
+            ManufacturingResult savedResult = command.execute();
+            savedList.add((E) savedResult);
+        }
+        return savedList;
     }*/
 
-    public <E extends ManufacturingResult> E saveManufacturingResult2(IManufacturingResultSaveCommand command, E manufacturingResult){
-        return (E) command.execute(command,manufacturingResult);
-    }
-
-    public <E extends ManufacturingResult> Iterable<E> saveAll(IManufacturingResultSaveCommand command, Iterable<E> it){
-        return command.execute(command,it);
+    public List<ManufacturingResult> saveResult(Iterable<IManufacturingResultSaveCommand> commands){
+        List<ManufacturingResult> savedList= Lists.newArrayList();
+        for (IManufacturingResultSaveCommand command: commands) {
+            ManufacturingResult savedResult = command.execute();
+            savedList.add( savedResult);
+        }
+        return savedList;
     }
 }

@@ -7,7 +7,8 @@ import com.mytech.domain.ManufacturingResult;
  * @date 2021-11-04
  * @description :
  */
-public interface IManufacturingResultSaveCommand {
-    <E extends ManufacturingResult> E execute(IManufacturingResultSaveCommand command, E e);
-    <E extends ManufacturingResult> Iterable<E> execute(IManufacturingResultSaveCommand command, Iterable<E> it);
+public interface IManufacturingResultSaveCommand <T extends ManufacturingResult>{
+    //execute method for new version of command pattern
+    T execute();
+//    <E extends ManufacturingResult> Iterable<E> execute(Iterable<IManufacturingResultSaveCommand> itCommand);
 }

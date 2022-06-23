@@ -25,25 +25,25 @@ import java.util.Map;
 //@RequestMapping()
 public class ManufacturingResultController {
 
-    @Autowired
+/*    @Autowired
     @Qualifier("complexResultServiceImpl")
-    ManufacturingResultService resultService;
+    ManufacturingResultService resultService;*/
 
-    @Autowired
+/*    @Autowired
     SaveCommandInvoker saveCommandInvoker;
     @Autowired
-    CommandFactory commandFactory;
+    CommandFactory commandFactory;*/
 
-    @PostMapping("/manufacturingresult/v1")
+/*    @PostMapping("/manufacturingresult/v1")
     @ResponseStatus(HttpStatus.CREATED)
     public ManufacturingResultOutputDTO saveResult(@RequestBody ManufacturingResultInputDTO inputDTO){
         Preconditions.checkNotNull(inputDTO,"inputDTO is null");
         ComplexManufacturingResult result = inputDTO.convertToManufacturingResult();
         ComplexManufacturingResult savedResult = (ComplexManufacturingResult) resultService.save(result);
         return ManufacturingResultOutputDTO.convertToDTO(savedResult);
-    }
+    }*/
 
-    @PostMapping("/manufacturingresult/v2")
+/*    @PostMapping("/manufacturingresult/v2")
     @ResponseStatus(HttpStatus.CREATED)
     public Map<String,ManufacturingResultOutputDTO> saveResult2(Map<String, ManufacturingResultInputDTO> inputMap){
         Preconditions.checkNotNull(inputMap,"inputMap is null");
@@ -60,7 +60,7 @@ public class ManufacturingResultController {
             returnMap.put(commandKey,ManufacturingResultOutputDTO.convertToDTO(savedResult));
         }
         return returnMap;
-    }
+    }*/
 
 //    public int deleteResult()
 
