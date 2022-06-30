@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -28,7 +29,7 @@ public class ComplexResultService<T extends ComplexManufacturingResult> implemen
     }
 
     @Override
-    public Iterable<ComplexManufacturingResult> saveAll(Iterable<ComplexManufacturingResult> iterable) {
+    public List<ComplexManufacturingResult> saveAll(Iterable<ComplexManufacturingResult> iterable) {
         return complexRepo.saveAll(iterable);
     }
 
