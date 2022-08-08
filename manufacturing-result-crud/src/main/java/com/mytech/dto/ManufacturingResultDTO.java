@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -16,7 +17,8 @@ import java.time.LocalDateTime;
  * @description :
  */
 @Data
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
+@MappedSuperclass
 @AllArgsConstructor
 public class ManufacturingResultDTO {
     @NotBlank(message = "barcode is blank(either null or empty)")
@@ -41,8 +43,8 @@ public class ManufacturingResultDTO {
     @NotBlank(message = "testItem is null")
     String testItem;
 
-    @NotNull(message = "manufacturing result value is null")
-    Double result;
+/*    @NotNull(message = "manufacturing result value is null")
+    Double result;*/
 
     @NotBlank(message = "operator is blank(either null or empty)")
     String operator;

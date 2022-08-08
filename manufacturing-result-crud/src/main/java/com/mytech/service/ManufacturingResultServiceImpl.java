@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -52,7 +53,7 @@ public class ManufacturingResultServiceImpl<T extends ManufacturingResult> imple
     }
 
     @Override
-    public Iterable saveAll(Iterable iterable) {
+    public List saveAll(Iterable iterable) {
         return null;
     }
 
