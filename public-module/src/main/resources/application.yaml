@@ -4,7 +4,10 @@ spring:
     password: 1234fast
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/kir_server_db?serverTimezone=UTC
-#    hikari:
+    hikari:
+#      minimum-idle: 50
+      maximum-pool-size: 50
+  #    hikari:
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 #    tomcat:
 #      driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,10 +22,15 @@ spring:
       #password: 1234fast
       hbm2ddl.auto: update
       dialect: org.hibernate.dialect.MySQLDialect
-    show-sql: true
+    show-sql: false
     autoconfigure:
       exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 30
+        generate_statistics: true
 
 #  config:
 #    activate:

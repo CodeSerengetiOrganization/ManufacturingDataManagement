@@ -23,7 +23,9 @@ import java.time.LocalDateTime;
 //@DiscriminatorColumn(name= "ALARM_TYPE")
 public abstract class ManufacturingResult {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "result_generator")
+    @SequenceGenerator(name="result_generator",sequenceName = "result_sequence")
     @Column(name = "f_id")
     private Integer id;
 

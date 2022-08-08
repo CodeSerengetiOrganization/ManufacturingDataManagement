@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -130,13 +131,13 @@ public class ManufacturingResultController {
         LocalTime beforeSave=LocalTime.now();
         List<ManufacturingResult> savedResults = complexResultService.saveAll(resultSet);
         //mark time stamp
-        LocalTime end=LocalTime.now();
-        System.out.println("start:"+start+";beforeSave:"+beforeSave+";end:"+end);
+/*        LocalTime end=LocalTime.now();
+        System.out.println("start:"+start+";beforeSave:"+beforeSave+";end:"+end);*/
 //        long latency = end.to() - start.toNanoOfDay();
 //        System.out.println("latency:"+latency);
-        for (ManufacturingResult r:savedResults) {
-            System.out.println(r);
-        }
+//        for (ManufacturingResult r:savedResults) {
+//            System.out.println(r);
+//        }
         return savedResults;
     }
 
@@ -181,5 +182,69 @@ public class ManufacturingResultController {
         return savedResult;
     }
 //    public int deleteResult()
+    @GetMapping("/apiLoadTest")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String loadTestMethod(@RequestBody ComplexManufacturingResultInputDTO inputDTO){
+        return "load test for API";
+    }
 
+    @PostMapping("/apiLoadTest/v2")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<ManufacturingResult> loadTestMethodMultiResult(@RequestBody Set<ComplexManufacturingResultInputDTO> inputDTOSet){
+        List<ManufacturingResult> results = LoadTestResult.resultList;
+//        for (ManufacturingResult result:results) {
+//            System.out.println(result);
+//        }
+        return results;
+
+    }
+
+    private static class LoadTestResult{
+        public static List<ManufacturingResult> resultList=Lists.newArrayList();
+        static{
+            LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
+            LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
+            for (int i = 0; i <80 ; i++) {
+                ComplexManufacturingResult complex = ComplexManufacturingResult.builder().barcode("complex1 product")
+                        .productCode(1)
+                        .featureType("clip")
+                        .featureName("TP12")
+                        .stationCode(1)
+                        .stationChannelNo(1)
+                        .testItem("TP12 height")
+                        .result(1.234)
+                        .operator("AliceTest")
+                        .startTime(startTime)
+                        .endTime(endTime)
+                        .comment("created by Invoker test program with CommandFactory")
+                        .build();
+                complex.setBarcode("complex" + i);
+                resultList.add(complex);
+            }//for
+        }//static
+/*        private LoadTestResult(){
+            LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
+            LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
+            for (int i = 0; i <80 ; i++) {
+                ComplexManufacturingResult complex = ComplexManufacturingResult.builder().barcode("complex1 product")
+                        .productCode(1)
+                        .featureType("clip")
+                        .featureName("TP12")
+                        .stationCode(1)
+                        .stationChannelNo(1)
+                        .testItem("TP12 height")
+                        .result(1.234)
+                        .operator("AliceTest")
+                        .startTime(startTime)
+                        .endTime(endTime)
+                        .comment("created by Invoker test program with CommandFactory")
+                        .build();
+                complex.setBarcode("complex"+i);
+                resultList.add(complex);
+            }
+        }//constructor*/
+/*        private static List<ManufacturingResult> getResults(){
+            return resultList;
+        }*/
+    }//class LoadTestResult
 }//ManufacturingResultController
