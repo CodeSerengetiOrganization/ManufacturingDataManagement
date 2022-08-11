@@ -5,10 +5,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
-import com.mytech.dto.ComplexManufacturingResultInputDTO;
-import com.mytech.dto.ManufacturingResultDTO;
-import com.mytech.dto.SimpleManufacturingResultInputDTO;
-import com.mytech.dto.ManufacturingResultOutputDTO;
+import com.mytech.dto.*;
+import com.mytech.exception.apiexception.ApiTestException;
 import com.mytech.savecommand.CommandFactory;
 import com.mytech.savecommand.IManufacturingResultSaveCommand;
 import com.mytech.savecommand.SaveCommandInvoker;
@@ -247,4 +245,26 @@ public class ManufacturingResultController {
             return resultList;
         }*/
     }//class LoadTestResult
+
+    /**
+     * this method is to test GlobalErrorHandler could catch this exception
+     * @return NA
+     */
+    @GetMapping("/throwapiexception")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDTO throwErrorDtoForTest(){
+        throw ApiTestException.builder()
+                .code(99L)
+                .message("Api Exception throw by controller method")
+                .build();
+    }
+
+    /**
+     * this method is to trigger a service to throw ServiceException, then test if GlobalErrorHandler could catch this exception
+     */
+    @GetMapping("/trigger_service_exception")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void triggerServiceException(){
+        complexResultService.throwServiceException();
+    }
 }//ManufacturingResultController
