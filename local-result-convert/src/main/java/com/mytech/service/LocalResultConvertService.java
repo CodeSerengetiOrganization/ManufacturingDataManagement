@@ -73,7 +73,9 @@ public class LocalResultConvertService {
         return resultSetFromAllFiles;
         */
 
-        return (List<ManufacturingResult>) saveCommandInvoker.saveAll(commandFactory.getCommand("complexResult"),resultSetFromAllFiles);
+//        return (List<ManufacturingResult>) saveCommandInvoker.saveAll(commandFactory.getCommand("complexResult"),resultSetFromAllFiles);
+        List<ManufacturingResult> savedResults = saveCommandInvoker.saveResult(CommandFactory.getCommandSet(resultSetFromAllFiles));
+        return savedResults;
     }//convertAndSaveLocalTestFiles
 
     private Set<ManufacturingResult> buildManufacturingResultFromFile(File file, int arrSizeIfPass, int arrSizeIfFail, String failSymbolString) throws IOException {
