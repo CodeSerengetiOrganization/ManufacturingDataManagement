@@ -145,4 +145,13 @@ public class LocalResultConvertServiceTest {
             System.out.println(result);
         }
     }
+
+    /**
+     * This method has no business purpose, just to see if this test class could run or not.
+     */
+    @Test
+    public void justToSeeIfTestClassCouldRun(){
+        System.out.println("Test could run");
+    }
+
 }//LocalResultConvertServiceTest
