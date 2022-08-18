@@ -6,6 +6,7 @@ import com.mytech.domain.ManufacturingResult;
 import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Set;
 public interface ManufacturingResultService<T extends ManufacturingResult> {
     //1.create
     T save(T entity);
-    Iterable<T> saveAll(Iterable<T> iterable);
+    List<T> saveAll(Iterable<T> iterable);
     //4.delete
     void delete(T entity);
     @Transactional

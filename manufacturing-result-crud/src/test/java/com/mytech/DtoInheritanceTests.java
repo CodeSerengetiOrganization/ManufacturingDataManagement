@@ -1,6 +1,6 @@
 package com.mytech;
 
-import com.mytech.dto.ManufacturingResultInputDTO;
+import com.mytech.dto.SimpleManufacturingResultInputDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class DtoInheritanceTests {
     @Test
     public void testInputDtoSetter(){
-        ManufacturingResultInputDTO inputDTO=new ManufacturingResultInputDTO();
+        SimpleManufacturingResultInputDTO inputDTO=new SimpleManufacturingResultInputDTO();
         inputDTO.setBarcode("a barcode");
         inputDTO.setOperator("Bob");
         System.out.println("inputDTO in test:"+inputDTO);
