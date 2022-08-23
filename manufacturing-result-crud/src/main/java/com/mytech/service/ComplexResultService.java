@@ -2,7 +2,6 @@ package com.mytech.service;
 
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
-import com.mytech.exception.serviceexception.FolderNotFoundException;
 import com.mytech.repository.ComplexResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,13 +59,5 @@ public class ComplexResultService<T extends ComplexManufacturingResult> implemen
         return 0;
     }
 
-    /**
-     * this method only throw a ServiceException, just to test if GlobalErrorHandler could catch this exception
-     */
-    public void throwServiceException(){
-        throw FolderNotFoundException.builder()
-                .code(98L)
-                .message("FolderNotFoundException thrown by Service Layer")
-                .build();
-    }
+
 }

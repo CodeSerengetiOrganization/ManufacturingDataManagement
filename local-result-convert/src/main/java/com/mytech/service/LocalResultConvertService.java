@@ -43,6 +43,7 @@ public class LocalResultConvertService {
     @Autowired
     CommandFactory commandFactory;
 
+    //this is the method used by controller layer.
     public List<ManufacturingResult> convertAndSaveLocalTestFiles(String url,String fileExtension) throws IOException {
         ArrayList<String> fileNameList = Lists.newArrayList();
         ArrayList<String> savedFileNameList=Lists.newArrayList();
@@ -78,6 +79,16 @@ public class LocalResultConvertService {
         return savedResults;
     }//convertAndSaveLocalTestFiles
 
+    /**
+     * using
+     * parse the content of text file,extract manufacturing results
+     * @param file the File object to parse
+     * @param arrSizeIfPass the size of a passed result
+     * @param arrSizeIfFail the size of a failed result
+     * @param failSymbolString the string to indicate the part is failed
+     * @return a Set of of ManufacturingResult which contains all extracted manufacutring result from the text file
+     * @throws IOException
+     */
     private Set<ManufacturingResult> buildManufacturingResultFromFile(File file, int arrSizeIfPass, int arrSizeIfFail, String failSymbolString) throws IOException {
         HashSet<ManufacturingResult> manufacturingResultSet= Sets.newHashSet();
         String[] splitFileName = new String[0];
@@ -151,6 +162,14 @@ public class LocalResultConvertService {
         return manufacturingResultSet;
     }//parseLocalTestFile
 
+    /**
+     * parse the content of local text file in
+     * @param file
+     * @param arrSizeIfPass
+     * @param arrSizeIfFail
+     * @param failSymbolString
+     * @throws IOException
+     */
     private void parseLocalTestFile(File file,int arrSizeIfPass,int arrSizeIfFail,String failSymbolString) throws IOException {
         String[] splitFileName = new String[0];
         String testResult =null;
@@ -204,7 +223,7 @@ public class LocalResultConvertService {
                     .testItem(getTestItem())
                     .build();
             HashMap<String, Double> testItemMap = readFileContent(file);
-            //build an object first
+            //add test items and result readings into the ManufacturingResult object.
             for (Map.Entry<String,Double> entries:testItemMap.entrySet()) {
                 //todo: create an instance here and copy all public properties into this new instance, making sure different instance will save into database
                 System.out.println(entries.getKey()+":"+entries.getValue());
@@ -236,6 +255,13 @@ public class LocalResultConvertService {
 
     }//parseLocalTestFile
 
+    /**
+     * using
+     * read the content of text file, get test items and its result readings
+     * @param file
+     * @return A map contains test item for key, test result readings for value.
+     * @throws IOException
+     */
     private HashMap<String, Double> readFileContent(File file) throws IOException {
         HashMap<String, Double> testItemMap = Maps.newHashMap();
         if (file !=null){

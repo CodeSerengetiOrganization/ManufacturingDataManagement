@@ -49,8 +49,8 @@ public class ServiceExceptionTests {
 //        throw folderNotFoundException;
     }
 
-    @Test
+/*    @Test
     public void throw_service_exception_to_see_if_controller_advice_can_catch_it(){
         complexService.throwServiceException();
-    }
+    }*/
 }//class
