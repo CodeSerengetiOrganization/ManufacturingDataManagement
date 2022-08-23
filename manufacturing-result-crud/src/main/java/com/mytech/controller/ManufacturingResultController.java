@@ -7,6 +7,7 @@ import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.dto.ComplexManufacturingResultInputDTO;
 import com.mytech.dto.ErrorDTO;
+import com.mytech.dto.*;
 //import com.mytech.exception.apiexception.ApiTestException;
 import com.mytech.savecommand.CommandFactory;
 import com.mytech.savecommand.IManufacturingResultSaveCommand;
@@ -261,7 +262,6 @@ public class ManufacturingResultController {
     }*/
 
 
-
 /*    *//**
      * this method is to trigger a service to throw ServiceException, then test if GlobalErrorHandler could catch this exception
      *//*
@@ -270,6 +270,5 @@ public class ManufacturingResultController {
     public void triggerServiceException(){
         complexResultService.throwServiceException();
     }*/
-
 
 }//ManufacturingResultController
