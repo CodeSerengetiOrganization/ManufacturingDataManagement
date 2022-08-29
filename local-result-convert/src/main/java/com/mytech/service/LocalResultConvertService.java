@@ -5,6 +5,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
+import com.mytech.exception.serviceexception.FileFormatNotEligible;
+import com.mytech.exception.serviceexception.FolderNotFoundException;
 import com.mytech.savecommand.CommandFactory;
 import com.mytech.savecommand.SaveCommandInvoker;
 import org.apache.commons.io.FilenameUtils;
@@ -55,14 +57,19 @@ public class LocalResultConvertService {
                 .filter(p -> p.getFileName().toString().endsWith(fileExtension))
                 .map(Path::toFile)
                 .collect(Collectors.toList());
+        if(filesInFolder==null) throw FolderNotFoundException.builder()
+                .message("service message:the folder select could not found.")
+                .build();
         for (File file: filesInFolder) {
-            if (file.isFile()){
-                fileNameList.add(file.getName());
-                parseLocalTestFile(file,7,8,"BAD");
-                Set<ManufacturingResult> resultSetFromSingleFile = buildManufacturingResultFromFile(file, 7, 8, "BAD");
+            if(!file.isFile()){
+                throw FileFormatNotEligible.builder()
+                        .message("this file is not a normal file").build();
+            }
+            fileNameList.add(file.getName());
+            parseLocalTestFile(file,7,8,"BAD");
+            Set<ManufacturingResult> resultSetFromSingleFile = buildManufacturingResultFromFile(file, 7, 8, "BAD");
 //                resultSetFromAllFiles.add(resultSetFromSingleFile);
-                resultSetFromAllFiles.addAll(resultSetFromSingleFile);
-            }//if
+            resultSetFromAllFiles.addAll(resultSetFromSingleFile);
         }//for
 
         if (resultSetFromAllFiles==null || resultSetFromAllFiles.size()<=0) return null;

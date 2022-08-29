@@ -10,32 +10,32 @@ import lombok.Data;
  */
 @Data
 
-public class ApiTestException extends RuntimeException {
+public class ApiException extends RuntimeException {
     private Long code;
     //    private String message;
 //    private Throwable e;
-    public ApiTestException() {
+    public ApiException() {
     }
 
-    public ApiTestException(String message) {
+    public ApiException(String message) {
         super(message);
     }
-    public ApiTestException(Throwable cause) {
+    public ApiException(Throwable cause) {
         super(cause);
     }
-    public ApiTestException(String message, Throwable cause) {
+    public ApiException(String message, Throwable cause) {
         super(message, cause);
     }
-    public ApiTestException(Long code, String message){
+    public ApiException(Long code, String message){
         super(message);
         this.code=code;
     }
-    @Builder
-    public ApiTestException(Long code, String message,Throwable cause){
+//    @Builder
+    public ApiException(Long code, String message, Throwable cause){
         super(message,cause);
         this.code=code;
     }
-    protected ApiTestException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ApiException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

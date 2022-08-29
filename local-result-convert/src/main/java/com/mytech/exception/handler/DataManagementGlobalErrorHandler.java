@@ -1,14 +1,12 @@
 package com.mytech.exception.handler;
 
 import com.mytech.dto.ErrorDTO;
-import com.mytech.exception.apiexception.ApiTestException;
+import com.mytech.exception.apiexception.ApiException;
 import com.mytech.exception.serviceexception.FolderNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -34,8 +32,8 @@ public class DataManagementGlobalErrorHandler extends ResponseEntityExceptionHan
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ApiTestException.class)
-    public ResponseEntity<Object> handleApiTestException(ApiTestException exception, WebRequest request){
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Object> handleApiTestException(ApiException exception, WebRequest request){
         ErrorDTO errorDTO=ErrorDTO.builder()
                 .errorCode(exception.getCode())
                 .errorMessage(exception.getMessage())

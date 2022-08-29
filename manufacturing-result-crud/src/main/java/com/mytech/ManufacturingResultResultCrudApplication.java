@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
  * @date 2021-09-18
  * @description :
  */
-@SpringBootApplication
-@EntityScan("com.mytech.domain")
+/*@SpringBootApplication
+@EntityScan("com.mytech.domain")*/
 public class ManufacturingResultResultCrudApplication {
     public static void main(String[] args) {
         SpringApplication.run(ManufacturingResultResultCrudApplication.class,args);
