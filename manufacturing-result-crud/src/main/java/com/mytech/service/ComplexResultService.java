@@ -2,11 +2,13 @@ package com.mytech.service;
 
 import com.mytech.domain.ComplexManufacturingResult;
 import com.mytech.domain.ManufacturingResult;
+import com.mytech.exception.serviceexception.FolderNotFoundException;
 import com.mytech.repository.ComplexResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -28,7 +30,7 @@ public class ComplexResultService<T extends ComplexManufacturingResult> implemen
     }
 
     @Override
-    public Iterable<ComplexManufacturingResult> saveAll(Iterable<ComplexManufacturingResult> iterable) {
+    public List<ComplexManufacturingResult> saveAll(Iterable<ComplexManufacturingResult> iterable) {
         return complexRepo.saveAll(iterable);
     }
 
@@ -56,5 +58,15 @@ public class ComplexResultService<T extends ComplexManufacturingResult> implemen
     @Override
     public int convertLocalFileToDB(String filePath) throws IOException {
         return 0;
+    }
+
+    /**
+     * this method only throw a ServiceException, just to test if GlobalErrorHandler could catch this exception
+     */
+    public void throwServiceException(){
+        throw FolderNotFoundException.builder()
+                .code(98L)
+                .message("FolderNotFoundException thrown by Service Layer")
+                .build();
     }
 }

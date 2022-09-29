@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,7 +25,7 @@ public class SimpleResultService<T extends SimpleManufacturingResult> implements
     }
 
     @Override
-    public Iterable<SimpleManufacturingResult> saveAll(Iterable<SimpleManufacturingResult> iterable) {
+    public List<SimpleManufacturingResult> saveAll(Iterable<SimpleManufacturingResult> iterable) {
         return simpleRepo.saveAll(iterable);
     }
 

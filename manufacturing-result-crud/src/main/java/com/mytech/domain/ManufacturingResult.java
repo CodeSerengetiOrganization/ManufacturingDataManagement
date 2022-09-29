@@ -23,7 +23,9 @@ import java.time.LocalDateTime;
 //@DiscriminatorColumn(name= "ALARM_TYPE")
 public abstract class ManufacturingResult {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "result_generator")
+    @SequenceGenerator(name="result_generator",sequenceName = "result_sequence")
     @Column(name = "f_id")
     private Integer id;
 
@@ -44,7 +46,7 @@ public abstract class ManufacturingResult {
     @NotNull(message = "stationChannelNo is null")
     private Integer stationChannelNo;
 
-    @Column(name = "f_feature_type")
+/*    @Column(name = "f_feature_type")
     @NotBlank(message = "featureType is null")
     private String featureType;
 
@@ -54,7 +56,7 @@ public abstract class ManufacturingResult {
 
     @Column(name = "f_test_item")
     @NotBlank(message = "testItem is null")
-    private String testItem;
+    private String testItem;*/
 
 /*    @Column(name = "f_result")
     @NotNull(message = "manufacturing result value is null")
