@@ -31,6 +31,18 @@ public class ComplexManufacturingResult extends ManufacturingResult{
     @NotNull(message = "manufacturing result value is null")
     private Double result;
 
+    @Column(name = "f_feature_type")
+    @NotBlank(message = "featureType is null")
+    private String featureType;
+
+    @Column(name = "f_feature_name")
+    @NotBlank(message = "featureName is null")
+    private String featureName;
+
+    @Column(name = "f_test_item")
+    @NotBlank(message = "testItem is null")
+    private String testItem;
+
     @Tolerate
     public ComplexManufacturingResult(){}
 
