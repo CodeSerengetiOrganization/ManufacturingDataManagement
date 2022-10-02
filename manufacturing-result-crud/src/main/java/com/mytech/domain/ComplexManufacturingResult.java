@@ -29,7 +29,7 @@ public class ComplexManufacturingResult extends ManufacturingResult{
 
     @Column(name = "f_result")
     @NotNull(message = "manufacturing result value is null")
-    private Double result;
+    private Boolean result;
 
     @Column(name = "f_feature_type")
     @NotBlank(message = "featureType is null")
@@ -43,6 +43,9 @@ public class ComplexManufacturingResult extends ManufacturingResult{
     @NotBlank(message = "testItem is null")
     private String testItem;
 
+    @Column(name = "f_test_value")
+    @NotNull(message = "testValue is null")
+    private Double testValue;
     @Tolerate
     public ComplexManufacturingResult(){}
 
