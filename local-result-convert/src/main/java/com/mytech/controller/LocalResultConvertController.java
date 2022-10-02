@@ -32,14 +32,16 @@ import java.util.List;
 public class LocalResultConvertController {
 
     @Autowired
-    private LocalResultConvertService localResultConvertService;
+    LocalResultConvertService localResultConvertService;
     @PostMapping("/convertLocalResult/v1")
     public List<ManufacturingResult> convertLocalResultTextFiles(@RequestBody String url) {
         Preconditions.checkNotNull(url,"URL is null");
         Preconditions.checkArgument(!url.isEmpty(),"URL is empty");
         List<ManufacturingResult> resultList=new ArrayList<>();
         try{
+            System.out.println("url:"+url);
             resultList= localResultConvertService.convertAndSaveLocalTestFiles(url, "txt");
+
         }catch (FileFormatNotEligible e){
             //todo:: throw ApiException
 

@@ -2,6 +2,7 @@ package com.mytech.exception.apiexception;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author `<a href="mailto:qiang.wang@1020@gmail.com">qiang</a>`
@@ -9,7 +10,7 @@ import lombok.Data;
  * @description :
  */
 @Data
-
+@EqualsAndHashCode(callSuper = true)
 public class ApiException extends RuntimeException {
     private Long code;
     //    private String message;

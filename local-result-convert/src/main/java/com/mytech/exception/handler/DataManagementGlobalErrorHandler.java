@@ -41,4 +41,5 @@ public class DataManagementGlobalErrorHandler extends ResponseEntityExceptionHan
                 .build();
         return new ResponseEntity<>(errorDTO, HttpStatus.NO_CONTENT);
     }
+
 }

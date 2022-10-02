@@ -140,7 +140,7 @@ public class LocalResultConvertServiceTest {
 
     @Test
     public void giveRightUrlAndExtensionShouldSaveResultIntoComplexResultTable() throws IOException {
-        List<ManufacturingResult> returnedList = convertService.convertAndSaveLocalTestFiles("G:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\48\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt", "txt");
+        List<ManufacturingResult> returnedList = convertService.convertAndSaveLocalTestFiles("E:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\ScannerFiles\\49\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt", "txt");
         for (ManufacturingResult result:returnedList) {
             System.out.println(result);
         }
@@ -152,6 +152,13 @@ public class LocalResultConvertServiceTest {
     @Test
     public void justToSeeIfTestClassCouldRun(){
         System.out.println("Test could run");
+    }
+
+
+    @Test
+    public void testReadFileContent() throws IOException {
+        File file= new File("E:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\LocalTextFiles\\BAD_Result_RBTA_11664_48_1_8_03.25.35.txt");
+        convertService.readFileContent(file);
     }
 
 }//LocalResultConvertServiceTest
