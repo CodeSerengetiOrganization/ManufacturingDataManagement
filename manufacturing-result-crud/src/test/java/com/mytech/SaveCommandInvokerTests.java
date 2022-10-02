@@ -208,7 +208,8 @@ public class SaveCommandInvokerTests {
                 .stationCode(1)
                 .stationChannelNo(1)
                 .testItem("TP12 height")
-                .result(1.234)
+                .testValue(1.234)
+                .result(true)
                 .operator("AliceTest")
                 .startTime(startTime)
                 .endTime(endTime)
@@ -243,7 +244,7 @@ public class SaveCommandInvokerTests {
         System.out.println("return values:"+manufacturingResults);
     }
     @Test
-    public void given_SimpleManufacturingResult_and_ComplexManufacturingResult_Set_should_return_ICommand_Set_using_CommandFactory(){
+    public void given_SimpleManufacturingResult_and_ComplexManufacturingResult_Set_should_save_into_database_manufal_check(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
         complex1 = ComplexManufacturingResult.builder().barcode("complex1 product")
@@ -253,7 +254,8 @@ public class SaveCommandInvokerTests {
                 .stationCode(1)
                 .stationChannelNo(1)
                 .testItem("TP12 height")
-                .result(1.234)
+                .testValue(1.23)
+                .result(true)
                 .operator("AliceTest")
                 .startTime(startTime)
                 .endTime(endTime)
