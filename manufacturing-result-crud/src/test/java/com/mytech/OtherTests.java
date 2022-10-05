@@ -17,5 +17,9 @@ public class OtherTests {
         int value = it.intValue();
         System.out.println("value:"+value);
     }
+    @Test
+    public void justForTest(){
+        System.out.println("This is just a test");
+    }
 
 }//class
