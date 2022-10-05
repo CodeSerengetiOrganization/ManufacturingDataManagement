@@ -199,7 +199,7 @@ public class LocalResultConvertService {
                 BeanUtils.copyProperties(complexResultTemplate,complexResult);
                 complexResult.setFeatureName(testItem);
                 complexResult.setFeatureType(testItem);
-                complexResult.setResult(testValue);
+                complexResult.setTestValue(testValue);
 //                complexResult.setBarcode(getBarCodeSimu());
                 manufacturingResultSet.add(complexResult);
 //                System.out.println("complexResult Object Hashcode:"+complexResult.hashCode());
@@ -303,7 +303,7 @@ public class LocalResultConvertService {
                 Double testValue=entries.getValue();
                 complexResult.setFeatureName(testItem);
                 complexResult.setFeatureType(testItem);
-                complexResult.setResult(testValue);
+                complexResult.setTestValue(testValue);
                 complexResult.setBarcode(getBarCodeSimu());
                 System.out.println("complexResult Object Hashcode:"+complexResult.hashCode());
                 System.out.println("complexResult Object:"+complexResult.toString());
