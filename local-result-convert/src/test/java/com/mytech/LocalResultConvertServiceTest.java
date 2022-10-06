@@ -2,6 +2,7 @@ package com.mytech;
 
 import com.mytech.domain.ManufacturingResult;
 import com.mytech.service.LocalResultConvertService;
+import com.mytech.service.ResultInFileLine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,4 +162,19 @@ public class LocalResultConvertServiceTest {
         convertService.readFileContent(file);
     }
 
+    @Test
+    public void testReadFileContentToObjects() throws IOException {
+        File file=new File("E:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\LocalTextFiles2\\failed-sample.txt");
+        Set<ResultInFileLine> results = convertService.readFileContentToObjects(file);
+        for (ResultInFileLine result:results) {
+            System.out.println(result);
+        }
+    }
+
+    @Test
+    public void testConvertAndSaveLocalTestFiles_give_right_url_should_save_into_database_manual_check() throws IOException {
+        String url="E:\\JavaProjects\\KirchhoffManufacturingDataManagementSystem\\LocalTextFiles2";
+        List<ManufacturingResult> resultList = convertService.convertAndSaveLocalTestFiles(url, "txt");
+
+    }
 }//LocalResultConvertServiceTest

@@ -9,6 +9,10 @@ import com.mytech.domain.SimpleManufacturingResult;
 import com.mytech.exception.serviceexception.FileFormatNotEligible;
 import com.mytech.exception.serviceexception.FolderNotFoundException;
 import com.mytech.savecommand.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.BeanUtils;
@@ -74,8 +78,8 @@ public class LocalResultConvertService {
 //            if(fileNameList.size()<1){
 //                System.out.println();
 //            }
-            parseLocalTestFile(file,7,8,"BAD");
-            Set<ManufacturingResult> resultSetFromSingleFile = buildManufacturingResultFromFile(file, 7, 8, "BAD");
+//            parseLocalTestFile(file,7,8,"BAD"); //todo: check if it is useful
+            Set<ManufacturingResult> resultSetFromSingleFile = buildManufacturingResultFromFileWithObjects(file, 7, 8, "BAD");
 //                resultSetFromAllFiles.add(resultSetFromSingleFile);
             resultSetFromAllFiles.addAll(resultSetFromSingleFile);
         }//for
@@ -117,7 +121,7 @@ public class LocalResultConvertService {
     }//convertAndSaveLocalTestFiles
 
     /**
-     * using
+     * deprecated, as the file is containing 3 items
      * parse the content of text file,extract manufacturing results
      * @param file the File object to parse
      * @param arrSizeIfPass the size of a passed result
@@ -126,6 +130,7 @@ public class LocalResultConvertService {
      * @return a Set of of ManufacturingResult which contains all extracted manufacutring result from the text file
      * @throws IOException
      */
+    @Deprecated
     private Set<ManufacturingResult> buildManufacturingResultFromFile(File file, int arrSizeIfPass, int arrSizeIfFail, String failSymbolString) throws IOException {
         HashSet<ManufacturingResult> manufacturingResultSet= Sets.newHashSet();
         String[] splitFileName = new String[0];
@@ -232,8 +237,126 @@ public class LocalResultConvertService {
             }
         }
         return manufacturingResultSet;
-    }//parseLocalTestFile
+    }//buildManufacturingResultFromFile
+    /**
+     * using
+     * parse the content of text file,extract manufacturing results
+     * @param file the File object to parse
+     * @param arrSizeIfPass the size of a passed result
+     * @param arrSizeIfFail the size of a failed result
+     * @param failSymbolString the string to indicate the part is failed
+     * @return a Set of of ManufacturingResult which contains all extracted manufacutring result from the text file
+     * @throws IOException
+     */
+    private Set<ManufacturingResult> buildManufacturingResultFromFileWithObjects(File file, int arrSizeIfPass, int arrSizeIfFail, String failSymbolString) throws IOException {
+        HashSet<ManufacturingResult> manufacturingResultSet= Sets.newHashSet();
+        String[] splitFileName = new String[0];
+        String testResult =null;
+        String robotChanel =null;
+        int erpNo =-1;
+        String julianDay =null;
+        String shiftNo =null;
+        String serialNo =null;
+        String timeString =null;
+        LocalDate localDateYearDay = null;
+        LocalTime localTime=null;
+        LocalDateTime manufacturingTime=null;
+//        String chronoDayString=null;
+        int normalStartIndex =0;
+        if (!file.exists()) throw new FileNotFoundException("File ["+file.getName()+"] is not found");
+        if (file !=null){
+            String fileNameWithoutExtension = FilenameUtils.removeExtension(file.getName());
+            splitFileName=fileNameWithoutExtension.split("_");
+            if(splitFileName.length==arrSizeIfFail && splitFileName[0].equals(failSymbolString)){//this is a FAILED product
+                testResult="FAIL";
+                normalStartIndex=1;
+            }else if (splitFileName.length==arrSizeIfPass) {
+                // this product is a PASSED product
+                testResult="PASS";
+            }else{
+                //unknown result
+                testResult="UNKNOWN";
+            }//if-else
+            robotChanel=splitFileName[normalStartIndex+1];
+            erpNo=Integer.parseInt(splitFileName[normalStartIndex+2]);
+            julianDay=splitFileName[normalStartIndex+3];
+            shiftNo=splitFileName[normalStartIndex+4];
+            serialNo=splitFileName[normalStartIndex+5];
+            timeString=splitFileName[normalStartIndex+6];
+            localDateYearDay = LocalDate.ofYearDay(Integer.parseInt("2022"), Integer.parseInt(julianDay));
+            DateTimeFormatter kirTimeFormatter=DateTimeFormatter.ofPattern("HH.mm.ss");
+            localTime = LocalTime.parse(timeString, kirTimeFormatter);
+            manufacturingTime= LocalDateTime.of(localDateYearDay,localTime);
+//            chronoDayString = LocalDate.MIN.with(JulianFields.JULIAN_DAY, Long.parseLong(julianDay))
+//                    .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+//            LocalDate.MIN.with(JulianFields.)
+            //read the test file here
+            //build ManufacturingResult template object, this object is only for public properties
+            String simuBarcode=getBarCodeSimu();
+            int simuStationCode=getStationCode();
+            int simuStationChanelNo = getStationChanelNo(robotChanel);
+            String simuOperator=getOperator();
+            boolean simuSimpleTestResult= "PASS".equals(testResult)? true:false;
+            ComplexManufacturingResult complexResultTemplate = ComplexManufacturingResult.builder()
+                    .productCode(erpNo)
+                    .barcode(simuBarcode)
+                    .startTime(manufacturingTime)
+                    .endTime(manufacturingTime)
+                    .comment("shift:" + shiftNo)
+                    .stationCode(simuStationCode)
+                    .testItem(getTestItem())
+                    .stationChannelNo(simuStationChanelNo)
+                    .operator(simuOperator)
+                    .build();
+//            HashMap<String, Double> testItemMap = readFileContent(file);
+            Set<ResultInFileLine> resultInLineSet = readFileContentToObjects(file);
 
+            //build ComplextManufacturingResult object
+            System.out.println("start to show elements in testItemMap in method buildManufacturingResultFromFile");
+            for (ResultInFileLine resultObj:resultInLineSet) {
+                //todo: create an instance here and copy all public properties into this new instance, making sure different instance will save into database
+                String testItem=resultObj.getItem();
+                Double testValue=resultObj.getValue();
+                Boolean blResult=resultObj.getBlResult();
+                ComplexManufacturingResult complexResult=new ComplexManufacturingResult();
+                BeanUtils.copyProperties(complexResultTemplate,complexResult);
+                complexResult.setFeatureName(testItem);
+                complexResult.setFeatureType(testItem);
+                complexResult.setTestValue(testValue);
+                complexResult.setResult(blResult);
+//                complexResult.setBarcode(getBarCodeSimu());
+                manufacturingResultSet.add(complexResult);
+//                System.out.println("complexResult Object Hashcode:"+complexResult.hashCode());
+//                System.out.println("complexResult Object:"+complexResult.toString());
+            }//for
+
+
+            //build SimpleManufacturingResult object
+            SimpleManufacturingResult simpleResult = SimpleManufacturingResult.builder()
+                    .productCode(erpNo)
+                    .barcode(simuBarcode)
+                    .result(simuSimpleTestResult)
+                    .startTime(manufacturingTime)
+                    .endTime(manufacturingTime)
+                    .comment("shift:" + shiftNo)
+                    .stationCode(simuStationCode)
+                    .stationChannelNo(simuStationChanelNo)
+                    .operator(simuOperator).build();
+            manufacturingResultSet.add(simpleResult);
+        }//if
+        //show the manufacturingResultSet, which is to return
+        for (ManufacturingResult resultM: manufacturingResultSet) {
+            if(resultM instanceof ComplexManufacturingResult){
+                ComplexManufacturingResult result = (ComplexManufacturingResult) resultM;
+                System.out.println("from manufacturingResultSet:"+result.toString());
+            }
+            if(resultM instanceof SimpleManufacturingResult){
+                SimpleManufacturingResult result = (SimpleManufacturingResult) resultM;
+                System.out.println("from manufacturingResultSet:"+result.toString());
+            }
+        }
+        return manufacturingResultSet;
+    }//buildManufacturingResultFromFileWithObjects
     /**
      * parse the content of local text file in
      * @param file
@@ -242,6 +365,7 @@ public class LocalResultConvertService {
      * @param failSymbolString
      * @throws IOException
      */
+    @Deprecated
     private void parseLocalTestFile(File file,int arrSizeIfPass,int arrSizeIfFail,String failSymbolString) throws IOException {
         String[] splitFileName = new String[0];
         String testResult =null;
@@ -329,11 +453,12 @@ public class LocalResultConvertService {
 
     /**
      * using
-     * read the content of text file, get test items and its result readings, this method is to use the real manufacturing text file.
+     * read the content of text file, get test items and its result values, this method is to use the real manufacturing text file.
      * @param file
      * @return A map contains test item for key, test result readings for value.
      * @throws IOException
      */
+    @Deprecated
     public HashMap<String, Double> readFileContent(File file) throws IOException {
         HashMap<String, Double> testItemMap = Maps.newHashMap();
         if (file !=null){
@@ -358,6 +483,46 @@ public class LocalResultConvertService {
         return testItemMap;
     }//readFileContent
 
+    public Set<ResultInFileLine> readFileContentToObjects(File file) throws IOException {
+        HashSet<ResultInFileLine> resultsInFile = Sets.newHashSet();
+        if (file !=null){
+            if (file.isFile()){
+                Stream<String> lines = Files.lines(Paths.get(file.getPath()));
+//                lines.forEach(System.out::println);
+                List<String> lineList = lines.collect(Collectors.toList());
+                System.out.println("print all ResultInFileLine objects begins in method readFileContent:");
+                for (String line:lineList) {
+                    System.out.println(line);
+                    String[] split = line.split(":");
+                    //construct ResultInFileLine objects and save into Set
+                    Boolean blResult=false;
+                    if(split[2]!=null){
+                        if("pass".equals(split[2].toLowerCase())){
+                            blResult=true;
+                        }else if("fail".equals(split[2].toLowerCase())){
+                            blResult=false;
+                        }else{
+                            throw new RuntimeException("the boolean result in file line is NOT recognizable");
+                        } //if-else-else
+                    }//if
+
+                    ResultInFileLine resultInLine = ResultInFileLine.builder()
+                                                    .item(split[0])
+                                                    .value(Double.parseDouble(split[1]))
+                                                    .blResult(blResult)
+                                                    .build();
+                    resultsInFile.add(resultInLine);
+                }//for
+                System.out.println("print all ResultInFileLine objects ends in method readFileContent:");
+                lines.close();//close the stream as it is an I/O operation;
+/*                System.out.println("start to show testItemMap content");
+                for (Map.Entry<String,Double> testResult:testItemMap.entrySet() ) {
+                    System.out.println(testResult.getKey()+":"+testResult.getValue());
+                }*/
+            }
+        }
+        return resultsInFile;
+    }//readFileContentToObjects
     /**
      * using
      * read the content of text file, get test items and its result readings, this method is to use the simulated manufacturing text file.
@@ -365,6 +530,7 @@ public class LocalResultConvertService {
      * @return A map contains test item for key, test result readings for value.
      * @throws IOException
      */
+    @Deprecated
     private HashMap<String, Double> readFileContent2(File file) throws IOException {
         HashMap<String, Double> testItemMap = Maps.newHashMap();
         if (file !=null){
@@ -421,3 +587,4 @@ public class LocalResultConvertService {
         return "Height";
     }
 }//class
+
