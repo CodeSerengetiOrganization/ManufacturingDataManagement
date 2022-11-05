@@ -244,7 +244,7 @@ public class SaveCommandInvokerTests {
         System.out.println("return values:"+manufacturingResults);
     }
     @Test
-    public void given_SimpleManufacturingResult_and_ComplexManufacturingResult_Set_should_save_into_database_manufal_check(){
+    public void given_SimpleManufacturingResult_and_ComplexManufacturingResult_Set_should_save_into_database_manual_check(){
         LocalDateTime startTime=LocalDateTime.parse("2021-09-16T12:12");
         LocalDateTime endTime=LocalDateTime.parse("2021-09-16T13:13");
         complex1 = ComplexManufacturingResult.builder().barcode("complex1 product")
